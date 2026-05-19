@@ -35,30 +35,22 @@ export default function About() {
           <p>Salut, moi c'est <strong>Joakim</strong>.</p>
           <p>
             Étudiant en <strong>Bachelor Concepteur Développeur d'Applications (Bac+3)</strong> à{' '}
-            <strong>l'EPSI Paris</strong>, en alternance, je conçois et développe des applications{' '}
-            <strong>fullstack</strong> avec une attention particulière portée à l'expérience
-            utilisateur, à l'architecture des projets et à la qualité du code. J'aime travailler
-            aussi bien sur la partie front-end que back-end, réfléchir à la structure d'une
-            application, optimiser son fonctionnement et créer des interfaces à la fois modernes,
-            intuitives et agréables à utiliser.
+            <strong>l'EPSI Paris</strong>, en alternance, je développe des applications{' '}
+            <strong>fullstack</strong> avec une attention particulière portée à l'UX, à
+            l'architecture des projets et à la qualité du code.
           </p>
           <p>
-            Au fil de mes projets, j'ai eu l'occasion d'explorer différentes technologies et méthodes
-            de développement, ce qui m'a permis de renforcer ma <strong>capacité d'adaptation</strong>{' '}
-            et ma manière de concevoir des solutions techniques solides. J'accorde également beaucoup
-            d'importance à la logique derrière chaque projet : comprendre les besoins, imaginer une
-            expérience cohérente et construire quelque chose de durable et évolutif.
+            J'aime autant travailler sur le front-end que le back-end, concevoir des interfaces
+            modernes et construire des solutions techniques propres, évolutives et intuitives.
           </p>
           <p>
             Curieux et créatif, je suis passionné de <strong>worldbuilding</strong>,{' '}
-            de <strong>bande dessinée</strong> et de <strong>rétro gaming</strong>. Les jeux pixel art,
-            les anciennes consoles et les directions artistiques minimalistes m'inspirent énormément —
-            autant pour leur esthétique que pour leur capacité à transmettre des émotions avec
-            simplicité. Cette influence se retrouve naturellement dans mes projets personnels, où
-            j'aime mélanger modernité et inspirations rétro.
+            de <strong>bande dessinée</strong> et de <strong>rétro gaming</strong>. Les univers
+            pixel art et les directions artistiques minimalistes influencent beaucoup ma manière
+            de créer et l'identité visuelle de mes projets.
           </p>
           <p>
-            Mon objectif : créer des expériences numériques qui soient à la fois{' '}
+            Mon objectif : concevoir des expériences numériques à la fois{' '}
             <strong>fonctionnelles, immersives et mémorables</strong>.
           </p>
         </div>
