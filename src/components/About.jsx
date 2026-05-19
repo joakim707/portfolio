@@ -32,15 +32,34 @@ export default function About() {
       <div className="section-line" />
       <div className="about-grid reveal">
         <div className="about-text">
-          <p>Salut, moi c'est <strong>Joakim</strong>, alias <strong>Djo</strong>.</p>
+          <p>Salut, moi c'est <strong>Joakim</strong>.</p>
           <p>
-            Étudiant en <strong>Concepteur Développeur d'Applications (Bac+3)</strong> à l'EPSI
-            Paris, en alternance. Je construis des apps <strong>fullstack</strong> avec une
-            attention particulière à l'UX et à la qualité du code.
+            Étudiant en <strong>Bachelor Concepteur Développeur d'Applications (Bac+3)</strong> à{' '}
+            <strong>l'EPSI Paris</strong>, en alternance, je conçois et développe des applications{' '}
+            <strong>fullstack</strong> avec une attention particulière portée à l'expérience
+            utilisateur, à l'architecture des projets et à la qualité du code. J'aime travailler
+            aussi bien sur la partie front-end que back-end, réfléchir à la structure d'une
+            application, optimiser son fonctionnement et créer des interfaces à la fois modernes,
+            intuitives et agréables à utiliser.
           </p>
           <p>
-            En dehors du code, je suis passionné de <strong>worldbuilding, de BD</strong> et de{' '}
-            <strong>rétro gaming</strong>. Ce portfolio tourne à l'énergie pixel art, évidemment.
+            Au fil de mes projets, j'ai eu l'occasion d'explorer différentes technologies et méthodes
+            de développement, ce qui m'a permis de renforcer ma <strong>capacité d'adaptation</strong>{' '}
+            et ma manière de concevoir des solutions techniques solides. J'accorde également beaucoup
+            d'importance à la logique derrière chaque projet : comprendre les besoins, imaginer une
+            expérience cohérente et construire quelque chose de durable et évolutif.
+          </p>
+          <p>
+            Curieux et créatif, je suis passionné de <strong>worldbuilding</strong>,{' '}
+            de <strong>bande dessinée</strong> et de <strong>rétro gaming</strong>. Les jeux pixel art,
+            les anciennes consoles et les directions artistiques minimalistes m'inspirent énormément —
+            autant pour leur esthétique que pour leur capacité à transmettre des émotions avec
+            simplicité. Cette influence se retrouve naturellement dans mes projets personnels, où
+            j'aime mélanger modernité et inspirations rétro.
+          </p>
+          <p>
+            Mon objectif : créer des expériences numériques qui soient à la fois{' '}
+            <strong>fonctionnelles, immersives et mémorables</strong>.
           </p>
         </div>
         <div className="stat-box" data-label="PLAYER STATS" ref={statBoxRef}>
