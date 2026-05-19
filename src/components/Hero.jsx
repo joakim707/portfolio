@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react'
-
 const FLOAT_PIXELS = [
   { left: '8%',  duration: '7s',   delay: '0s',   color: 'var(--accent)' },
   { left: '22%', duration: '9s',   delay: '1s',   color: 'var(--accent2)' },
@@ -10,44 +8,52 @@ const FLOAT_PIXELS = [
   { left: '63%', duration: '11s',  delay: '4s',   color: 'var(--accent3)', size: '12px' },
 ]
 
-const SPRITE_COLORS = {
-  skin: '#f5c17a', hair: '#1a1a2e', shirt: '#7c6cff',
-  pants: '#2a2a40', eyes: '#00ff88', mouth: '#ff3c6e', acc: '#ffd700',
+function PixelSprite() {
+  return (
+    <svg
+      width="96" height="96"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ imageRendering: 'pixelated', marginBottom: '2rem', animation: 'bobbing 2s ease-in-out infinite', display: 'block' }}
+    >
+      {/* Hair */}
+      <rect x="4" y="2" width="16" height="1" fill="#1a1a2e" />
+      <rect x="3" y="3" width="2"  height="1" fill="#1a1a2e" />
+      <rect x="20" y="3" width="2" height="1" fill="#1a1a2e" />
+      {/* Face */}
+      <rect x="5" y="3" width="14" height="5" fill="#f5c17a" />
+      {/* Headphones */}
+      <rect x="3"  y="4" width="1" height="3" fill="#333" />
+      <rect x="20" y="4" width="1" height="3" fill="#333" />
+      <rect x="2"  y="5" width="1" height="1" fill="#555" />
+      <rect x="21" y="5" width="1" height="1" fill="#555" />
+      {/* Eyebrows */}
+      <rect x="7"  y="4" width="2" height="1" fill="#1a1a2e" />
+      <rect x="14" y="4" width="2" height="1" fill="#1a1a2e" />
+      {/* Eyes */}
+      <rect x="7"  y="5" width="2" height="1" fill="#00ff88" />
+      <rect x="14" y="5" width="2" height="1" fill="#00ff88" />
+      {/* Mouth */}
+      <rect x="9" y="7" width="5" height="1" fill="#ff3c6e" />
+      {/* Shirt + Arms */}
+      <rect x="4"  y="8" width="16" height="6" fill="#7c6cff" />
+      <rect x="2"  y="8" width="2"  height="5" fill="#7c6cff" />
+      <rect x="20" y="8" width="2"  height="5" fill="#7c6cff" />
+      {/* Hands */}
+      <rect x="2"  y="13" width="2" height="1" fill="#f5c17a" />
+      <rect x="20" y="13" width="2" height="1" fill="#f5c17a" />
+      {/* Pants */}
+      <rect x="4" y="14" width="16" height="5" fill="#2a2a40" />
+      {/* Shoes */}
+      <rect x="4"  y="19" width="7" height="2" fill="#111" />
+      <rect x="13" y="19" width="7" height="2" fill="#111" />
+      {/* Star */}
+      <rect x="11" y="10" width="2" height="2" fill="#ffd700" />
+    </svg>
+  )
 }
 
 export default function Hero() {
-  const canvasRef = useRef(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    ctx.imageSmoothingEnabled = false
-    const P = SPRITE_COLORS
-    const px = (x, y, c) => { ctx.fillStyle = c; ctx.fillRect(x, y, 1, 1) }
-
-    ctx.clearRect(0, 0, 24, 24)
-
-    [[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2],[11,2],[12,2],[13,2],[14,2],[15,2],[16,2],[17,2],[18,2],[19,2],[3,3],[4,3],[20,3],[21,3]]
-      .forEach(([x,y]) => px(x, y, P.hair))
-    for (let y = 3; y <= 7; y++) for (let x = 5; x <= 18; x++) px(x, y, P.skin)
-    [[7,5],[8,5],[14,5],[15,5]].forEach(([x,y]) => px(x, y, P.eyes))
-    [[7,4],[8,4],[14,4],[15,4]].forEach(([x,y]) => px(x, y, P.hair))
-    [[9,7],[10,7],[11,7],[12,7],[13,7]].forEach(([x,y]) => px(x, y, P.mouth))
-    for (let y = 8; y <= 13; y++) for (let x = 4; x <= 19; x++) px(x, y, P.shirt)
-    [[3,4],[3,5],[3,6],[20,4],[20,5],[20,6]].forEach(([x,y]) => px(x, y, '#333'))
-    [[2,5],[21,5]].forEach(([x,y]) => px(x, y, '#555'))
-    for (let y = 8; y <= 12; y++) {
-      px(2, y, P.shirt); px(3, y, P.shirt); px(20, y, P.shirt); px(21, y, P.shirt)
-    }
-    [[2,13],[3,13],[20,13],[21,13]].forEach(([x,y]) => px(x, y, P.skin))
-    for (let y = 14; y <= 18; y++) for (let x = 4; x <= 19; x++) px(x, y, P.pants)
-    for (let y = 19; y <= 20; y++) {
-      for (let x = 4;  x <= 10; x++) px(x, y, '#111')
-      for (let x = 13; x <= 19; x++) px(x, y, '#111')
-    }
-    px(11, 10, P.acc); px(12, 10, P.acc); px(11, 11, P.acc); px(12, 11, P.acc)
-  }, [])
-
   return (
     <section id="hero">
       {FLOAT_PIXELS.map((fp, i) => (
@@ -64,7 +70,7 @@ export default function Hero() {
         />
       ))}
 
-      <canvas ref={canvasRef} id="sprite" width="24" height="24" />
+      <PixelSprite />
 
       <div className="hero-tag">▶ PLAYER SELECT ◀</div>
       <h1 className="hero-name"><span>DJO</span><br />JOAKIM</h1>

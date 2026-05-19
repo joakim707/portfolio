@@ -1,8 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function Cursor() {
+  const curRef = useRef(null)
+
   useEffect(() => {
-    const cur = document.getElementById('cursor')
+    const cur = curRef.current
+    if (!cur) return
     const move = e => {
       cur.style.left = (e.clientX - 8) + 'px'
       cur.style.top  = (e.clientY - 8) + 'px'
@@ -19,5 +22,5 @@ export default function Cursor() {
     }
   }, [])
 
-  return <div id="cursor" />
+  return <div id="cursor" ref={curRef} />
 }
