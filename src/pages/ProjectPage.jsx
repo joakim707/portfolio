@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { getProject } from '../data/projects'
+import { useReveal } from '../hooks/useReveal'
 import Footer from '../components/Footer'
 
 const MOCKUP_HEIGHTS = {
@@ -32,6 +33,8 @@ export default function ProjectPage() {
       </div>
     )
   }
+
+  useReveal()
 
   const status = STATUS_MAP[project.status]
   const iframeHeight = MOCKUP_HEIGHTS[slug] ?? 440
