@@ -806,3 +806,66 @@ footer span { color: var(--accent2); }
   margin-top: 3px;
   flex-shrink: 0;
 }
+
+/* ── HAMBURGER ── */
+.nav-burger {
+  display: none;
+  background: none;
+  border: 2px solid var(--border);
+  color: var(--accent);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 10px;
+  line-height: 1;
+  transition: border-color 0.2s;
+}
+.nav-burger:hover { border-color: var(--accent); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+
+  /* Nav */
+  .nav-burger { display: block; }
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: rgba(10,10,15,0.97);
+    border-bottom: 2px solid var(--border);
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+    backdrop-filter: blur(8px);
+    z-index: 499;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { list-style: none; }
+
+  /* Sections */
+  section { padding: 3rem 1.2rem; }
+
+  /* Hero */
+  .hp-bar { width: 120px; }
+  .typing { font-size: 7px; letter-spacing: 1px; }
+
+  /* Stat bars */
+  .stat-label { min-width: 70px; font-size: 16px; }
+  .stat-row { gap: 0.5rem; }
+
+  /* Project page */
+  .project-page-hero { padding: 2rem 1.2rem 1rem; }
+  .project-page-body { padding: 0 1.2rem 3rem; }
+  .mockup-frame { position: static; }
+
+  /* Profile page */
+  .profile-hero { padding: 2rem 1.2rem 1rem; }
+  .profile-body { padding: 1rem 1.2rem 3rem; }
+
+  /* CV page */
+  .cv-header { padding: 2rem 1.2rem 1rem; }
+  .cv-body   { padding: 1rem 1.2rem 3rem; gap: 2rem; }
+
+  /* Contact */
+  .contact-box { padding: 2rem 1.2rem; }
+  .contact-links { flex-direction: column; align-items: center; }
+}
