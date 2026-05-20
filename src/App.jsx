@@ -1,23 +1,13 @@
 import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
-import Hero from './components/Hero'
-import About from './components/About'
-import Projects from './components/Projects'
-import Stack from './components/Stack'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import ProjectPage from './pages/ProjectPage'
+import CVPage from './pages/CVPage'
+import ProfilePage from './pages/ProfilePage'
 
-export default function App() {
-  useEffect(() => {
-    const reveals = document.querySelectorAll('.reveal')
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
-    }, { threshold: 0.1 })
-    reveals.forEach(el => obs.observe(el))
-    return () => obs.disconnect()
-  }, [])
-
+function KonamiCode() {
   useEffect(() => {
     const konami = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]
     let ki = 0
@@ -36,17 +26,21 @@ export default function App() {
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
   }, [])
+  return null
+}
 
+export default function App() {
   return (
-    <>
+    <BrowserRouter>
       <Cursor />
+      <KonamiCode />
       <Nav />
-      <Hero />
-      <About />
-      <Projects />
-      <Stack />
-      <Contact />
-      <Footer />
-    </>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/project/:slug" element={<ProjectPage />} />
+        <Route path="/cv" element={<CVPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
