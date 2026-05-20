@@ -73,7 +73,7 @@ export default function Hero() {
       <PixelSprite />
 
       <div className="hero-tag">▶ PLAYER SELECT ◀</div>
-      <h1 className="hero-name"><span>DJO</span><br />JOAKIM</h1>
+      <h1 className="hero-name">JOAKIM</h1>
       <p className="hero-sub">
         Concepteur Développeur d'Applications<br />
         <em>Fullstack · Alt M1 · Paris</em>

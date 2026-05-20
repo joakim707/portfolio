@@ -7,7 +7,7 @@ export default function Nav() {
   return (
     <nav>
       <div className="nav-logo">
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>DJO.DEV</Link>
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>JOAKIM</Link>
       </div>
       <ul className="nav-links">
         <li><a href={home ? '#about' : '/#about'}>PROFIL</a></li>
