@@ -7,9 +7,9 @@ export default function Contact() {
         <h2 className="contact-title">PRÊT À COLLABORER ?</h2>
         <p className="contact-sub">Alternance M1 · Freelance · Projets perso</p>
         <div className="contact-links">
-          <a href="mailto:contact@djo.dev" className="btn btn-green">✉ EMAIL</a>
-          <a href="https://github.com/" target="_blank" rel="noreferrer" className="btn btn-pink">⌨ GITHUB</a>
-          <a href="https://linkedin.com/" target="_blank" rel="noreferrer" className="btn btn-green">💼 LINKEDIN</a>
+          <a href="mailto:joakimwilondja04@gmail.com" className="btn btn-green">✉ EMAIL</a>
+          <a href="https://github.com/joakim707" target="_blank" rel="noreferrer" className="btn btn-pink">⌨ GITHUB</a>
+          <a href="https://www.linkedin.com/in/joakim-wilondja/" target="_blank" rel="noreferrer" className="btn btn-green">💼 LINKEDIN</a>
         </div>
       </div>
     </section>

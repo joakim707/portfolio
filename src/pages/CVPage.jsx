@@ -121,7 +121,7 @@ export default function CVPage() {
           <span>·</span>
           <span>joakimwilondja04@gmail.com</span>
           <span>·</span>
-          <span>94400 Vitry-sur-Seine</span>
+          <a href="https://www.linkedin.com/in/joakim-wilondja/" target="_blank" rel="noopener noreferrer" className="cv-link">LinkedIn</a>
           <span>·</span>
           <a href="https://github.com/joakim707" target="_blank" rel="noopener noreferrer" className="cv-link">GitHub</a>
         </div>
