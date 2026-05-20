@@ -1,0 +1,197 @@
+
+<h2 class="sr-only">Maquette du Gestionnaire de dossiers IA — organisation intelligente de fichiers</h2>
+
+<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem; font-family: var(--font-sans); display:flex; gap:10px;">
+
+  <!-- sidebar -->
+  <div style="width:155px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 10px 12px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+        <div style="width:28px; height:28px; border-radius:8px; background:#EEEDFE; display:flex; align-items:center; justify-content:center;">
+          <i class="ti ti-brain" style="font-size:15px; color:#534AB7;" aria-hidden="true"></i>
+        </div>
+        <span style="font-size:12px; font-weight:500; color:var(--color-text-primary);">GestionIA</span>
+      </div>
+
+      <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 6px; text-transform:uppercase; letter-spacing:0.5px;">Dossiers</p>
+      <div style="display:flex; flex-direction:column; gap:2px;">
+        <div style="padding:6px 8px; border-radius:6px; background:#EEEDFE; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="ti ti-folder" style="font-size:13px; color:#534AB7;" aria-hidden="true"></i>
+            <span style="font-size:11px; font-weight:500; color:#3C3489;">Tous</span>
+          </div>
+          <span style="font-size:10px; color:#534AB7;">48</span>
+        </div>
+        <div style="padding:6px 8px; border-radius:6px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="ti ti-file-text" style="font-size:13px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+            <span style="font-size:11px; color:var(--color-text-secondary);">Documents</span>
+          </div>
+          <span style="font-size:10px; color:var(--color-text-secondary);">21</span>
+        </div>
+        <div style="padding:6px 8px; border-radius:6px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="ti ti-photo" style="font-size:13px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+            <span style="font-size:11px; color:var(--color-text-secondary);">Images</span>
+          </div>
+          <span style="font-size:10px; color:var(--color-text-secondary);">12</span>
+        </div>
+        <div style="padding:6px 8px; border-radius:6px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="ti ti-code" style="font-size:13px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+            <span style="font-size:11px; color:var(--color-text-secondary);">Code</span>
+          </div>
+          <span style="font-size:10px; color:var(--color-text-secondary);">9</span>
+        </div>
+        <div style="padding:6px 8px; border-radius:6px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <i class="ti ti-alert-circle" style="font-size:13px; color:#D85A30;" aria-hidden="true"></i>
+            <span style="font-size:11px; color:#D85A30;">Non classés</span>
+          </div>
+          <span style="font-size:10px; color:#D85A30;">6</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 10px 12px;">
+      <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 8px; text-transform:uppercase; letter-spacing:0.5px;">Classif. IA</p>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:10px; color:var(--color-text-secondary);">Traitées</span>
+          <span style="font-size:10px; font-weight:500; color:#1D9E75;">42 / 48</span>
+        </div>
+        <div style="height:5px; background:var(--color-background-secondary); border-radius:99px; overflow:hidden;">
+          <div style="height:100%; width:87%; background:#1D9E75; border-radius:99px;"></div>
+        </div>
+        <span style="font-size:10px; color:var(--color-text-secondary);">Confiance moy. 91%</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- main content -->
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:8px;">
+
+    <!-- search bar -->
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 8px 12px; display:flex; align-items:center; gap:8px;">
+      <i class="ti ti-search" style="font-size:15px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+      <span style="font-size:12px; color:var(--color-text-secondary); flex:1;">Recherche intelligente — "rapport projet 2024"</span>
+      <span style="font-size:10px; padding:2px 8px; border-radius:99px; background:#EEEDFE; color:#534AB7;">IA</span>
+    </div>
+
+    <!-- file list -->
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 12px 14px; flex:1;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:0;">Tous les fichiers</p>
+        <div style="display:flex; gap:6px;">
+          <span style="font-size:10px; padding:3px 8px; border-radius:6px; background:var(--color-background-secondary); color:var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary);">Trier</span>
+          <span style="font-size:10px; padding:3px 8px; border-radius:6px; background:var(--color-background-secondary); color:var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary);">Filtrer</span>
+        </div>
+      </div>
+
+      <!-- file rows -->
+      <div style="display:flex; flex-direction:column; gap:1px;">
+
+        <div style="display:grid; grid-template-columns:1fr auto auto auto; gap:10px; align-items:center; padding:8px 6px; border-radius:6px; background:var(--color-background-secondary);">
+          <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+            <div style="width:28px; height:28px; border-radius:6px; background:#E6F1FB; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i class="ti ti-file-text" style="font-size:14px; color:#185FA5;" aria-hidden="true"></i>
+            </div>
+            <div style="min-width:0;">
+              <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">rapport_healthai_final.pdf</p>
+              <p style="font-size:10px; color:var(--color-text-secondary); margin:0;">2.4 Mo · modifié hier</p>
+            </div>
+          </div>
+          <span style="font-size:10px; padding:2px 8px; border-radius:99px; background:#E6F1FB; color:#185FA5; white-space:nowrap;">Documents</span>
+          <div style="display:flex; align-items:center; gap:3px;">
+            <div style="width:5px; height:5px; border-radius:50%; background:#1D9E75;"></div>
+            <span style="font-size:10px; color:#1D9E75;">98%</span>
+          </div>
+          <i class="ti ti-dots" style="font-size:14px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr auto auto auto; gap:10px; align-items:center; padding:8px 6px; border-radius:6px;">
+          <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+            <div style="width:28px; height:28px; border-radius:6px; background:#EAF3DE; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i class="ti ti-code" style="font-size:14px; color:#3B6D11;" aria-hidden="true"></i>
+            </div>
+            <div style="min-width:0;">
+              <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">swipe_api_controllers.zip</p>
+              <p style="font-size:10px; color:var(--color-text-secondary); margin:0;">840 Ko · modifié il y a 3j</p>
+            </div>
+          </div>
+          <span style="font-size:10px; padding:2px 8px; border-radius:99px; background:#EAF3DE; color:#3B6D11; white-space:nowrap;">Code</span>
+          <div style="display:flex; align-items:center; gap:3px;">
+            <div style="width:5px; height:5px; border-radius:50%; background:#1D9E75;"></div>
+            <span style="font-size:10px; color:#1D9E75;">95%</span>
+          </div>
+          <i class="ti ti-dots" style="font-size:14px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr auto auto auto; gap:10px; align-items:center; padding:8px 6px; border-radius:6px;">
+          <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+            <div style="width:28px; height:28px; border-radius:6px; background:#FAEEDA; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i class="ti ti-photo" style="font-size:14px; color:#854F0B;" aria-hidden="true"></i>
+            </div>
+            <div style="min-width:0;">
+              <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">maquette_swipe_v3.png</p>
+              <p style="font-size:10px; color:var(--color-text-secondary); margin:0;">1.1 Mo · modifié il y a 5j</p>
+            </div>
+          </div>
+          <span style="font-size:10px; padding:2px 8px; border-radius:99px; background:#FAEEDA; color:#854F0B; white-space:nowrap;">Images</span>
+          <div style="display:flex; align-items:center; gap:3px;">
+            <div style="width:5px; height:5px; border-radius:50%; background:#1D9E75;"></div>
+            <span style="font-size:10px; color:#1D9E75;">89%</span>
+          </div>
+          <i class="ti ti-dots" style="font-size:14px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr auto auto auto; gap:10px; align-items:center; padding:8px 6px; border-radius:6px;">
+          <div style="display:flex; align-items:center; gap:8px; min-width:0;">
+            <div style="width:28px; height:28px; border-radius:6px; background:#FCEBEB; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i class="ti ti-file" style="font-size:14px; color:#A32D2D;" aria-hidden="true"></i>
+            </div>
+            <div style="min-width:0;">
+              <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">notes_reunion_oct.txt</p>
+              <p style="font-size:10px; color:var(--color-text-secondary); margin:0;">12 Ko · modifié il y a 2sem</p>
+            </div>
+          </div>
+          <span style="font-size:10px; padding:2px 8px; border-radius:99px; background:#FCEBEB; color:#A32D2D; white-space:nowrap;">Non classé</span>
+          <div style="display:flex; align-items:center; gap:3px;">
+            <div style="width:5px; height:5px; border-radius:50%; background:#EF9F27;"></div>
+            <span style="font-size:10px; color:#BA7517;">54%</span>
+          </div>
+          <i class="ti ti-dots" style="font-size:14px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- IA action panel -->
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 10px 14px; display:flex; gap:8px; align-items:stretch;">
+
+      <div style="flex:1; border-right: 0.5px solid var(--color-border-tertiary); padding-right:10px; display:flex; gap:8px; align-items:flex-start;">
+        <i class="ti ti-sparkles" style="font-size:16px; color:#534AB7; flex-shrink:0; margin-top:1px;" aria-hidden="true"></i>
+        <div>
+          <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0 0 2px;">Suggestion IA</p>
+          <p style="font-size:10px; color:var(--color-text-secondary); margin:0; line-height:1.5;">notes_reunion_oct.txt ressemble à un compte-rendu. Classer dans Documents ?</p>
+          <div style="display:flex; gap:6px; margin-top:6px;">
+            <span style="font-size:10px; padding:3px 10px; border-radius:6px; background:#EEEDFE; color:#3C3489; cursor:default;">Accepter</span>
+            <span style="font-size:10px; padding:3px 10px; border-radius:6px; background:var(--color-background-secondary); color:var(--color-text-secondary); cursor:default; border: 0.5px solid var(--color-border-tertiary);">Ignorer</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; padding-left:10px; display:flex; gap:8px; align-items:flex-start;">
+        <i class="ti ti-search" style="font-size:16px; color:#1D9E75; flex-shrink:0; margin-top:1px;" aria-hidden="true"></i>
+        <div>
+          <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0 0 2px;">Analyse de contenu</p>
+          <p style="font-size:10px; color:var(--color-text-secondary); margin:0; line-height:1.5;">rapport_healthai_final.pdf — 14 pages, thèmes : nutrition, ML, visualisation.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

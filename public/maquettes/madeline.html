@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="./_shared.css">
+</head>
+<body>
+
+<h2 class="sr-only">Maquette de l'application Madeline — assistant conversationnel IA multi-modes</h2>
+
+<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem; font-family: var(--font-sans); display: flex; gap: 10px;">
+
+  <!-- sidebar -->
+  <div style="width: 160px; flex-shrink:0; display:flex; flex-direction:column; gap:8px;">
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 10px 12px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+        <div style="width:28px; height:28px; border-radius:50%; background:#2a2850; display:flex; align-items:center; justify-content:center;">
+          <i class="ti ti-robot" style="font-size:15px; color:#534AB7;" aria-hidden="true"></i>
+        </div>
+        <span style="font-size:13px; font-weight:500; color:var(--color-text-primary);">Madeline</span>
+      </div>
+
+      <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 6px; text-transform:uppercase; letter-spacing:0.5px;">Mode actif</p>
+
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <div style="background:#2a2850; border-radius:6px; padding:6px 8px; display:flex; align-items:center; gap:6px;">
+          <i class="ti ti-message" style="font-size:13px; color:#534AB7;" aria-hidden="true"></i>
+          <span style="font-size:11px; font-weight:500; color:#9b94e8;">Chat général</span>
+        </div>
+        <div style="border-radius:6px; padding:6px 8px; display:flex; align-items:center; gap:6px;">
+          <i class="ti ti-code" style="font-size:13px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+          <span style="font-size:11px; color:var(--color-text-secondary);">Génération code</span>
+        </div>
+        <div style="border-radius:6px; padding:6px 8px; display:flex; align-items:center; gap:6px;">
+          <i class="ti ti-file-text" style="font-size:13px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+          <span style="font-size:11px; color:var(--color-text-secondary);">Résumé</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 10px 12px;">
+      <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 8px; text-transform:uppercase; letter-spacing:0.5px;">Mémoire</p>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <span style="font-size:10px; color:var(--color-text-secondary);">Prénom retenu</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#1D9E75; flex-shrink:0;"></div>
+          <span style="font-size:10px; color:var(--color-text-secondary);">Préférences</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:5px;">
+          <div style="width:6px; height:6px; border-radius:50%; background:#EF9F27; flex-shrink:0;"></div>
+          <span style="font-size:10px; color:var(--color-text-secondary);">Contexte actuel</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- chat area -->
+  <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:8px;">
+
+    <div style="display:flex; align-items:center; gap:8px; padding: 0 2px;">
+      <span style="font-size:11px; padding:3px 10px; border-radius:99px; background:#2a2850; color:#9b94e8; font-weight:500;">
+        <i class="ti ti-message" style="font-size:11px;" aria-hidden="true"></i> Chat général
+      </span>
+      <span style="font-size:10px; color:var(--color-text-secondary);">Google Gemini · mémoire active</span>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 14px; display:flex; flex-direction:column; gap:12px; flex:1;">
+
+      <!-- bot intro -->
+      <div style="display:flex; gap:8px; align-items:flex-start;">
+        <div style="width:26px; height:26px; border-radius:50%; background:#2a2850; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <i class="ti ti-robot" style="font-size:13px; color:#534AB7;" aria-hidden="true"></i>
+        </div>
+        <div style="background: var(--color-background-secondary); border-radius: 0 10px 10px 10px; padding: 8px 12px; max-width:85%;">
+          <p style="font-size:12px; color:var(--color-text-primary); margin:0; line-height:1.5;">Bonjour Joakim ! Comment puis-je t'aider aujourd'hui ? 😊</p>
+        </div>
+      </div>
+
+      <!-- user message -->
+      <div style="display:flex; gap:8px; align-items:flex-start; flex-direction:row-reverse;">
+        <div style="width:26px; height:26px; border-radius:50%; background:#0d2b22; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:11px; font-weight:500; color:#1D9E75;">JK</div>
+        <div style="background:#534AB7; border-radius: 10px 0 10px 10px; padding: 8px 12px; max-width:85%;">
+          <p style="font-size:12px; color:#e8e6f8; margin:0; line-height:1.5;">Explique-moi la différence entre une API REST et GraphQL.</p>
+        </div>
+      </div>
+
+      <!-- bot response -->
+      <div style="display:flex; gap:8px; align-items:flex-start;">
+        <div style="width:26px; height:26px; border-radius:50%; background:#2a2850; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <i class="ti ti-robot" style="font-size:13px; color:#534AB7;" aria-hidden="true"></i>
+        </div>
+        <div style="background: var(--color-background-secondary); border-radius: 0 10px 10px 10px; padding: 8px 12px; max-width:88%;">
+          <p style="font-size:12px; color:var(--color-text-primary); margin:0 0 6px; line-height:1.5;">Bien sûr ! En bref :</p>
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <div style="display:flex; gap:6px; align-items:flex-start;">
+              <span style="font-size:11px; font-weight:500; color:#534AB7; flex-shrink:0; margin-top:1px;">REST</span>
+              <span style="font-size:11px; color:var(--color-text-secondary); line-height:1.5;">plusieurs endpoints, structure fixe, simple à mettre en place.</span>
+            </div>
+            <div style="display:flex; gap:6px; align-items:flex-start;">
+              <span style="font-size:11px; font-weight:500; color:#1D9E75; flex-shrink:0; margin-top:1px;">GraphQL</span>
+              <span style="font-size:11px; color:var(--color-text-secondary); line-height:1.5;">un seul endpoint, le client choisit exactement les données qu'il veut.</span>
+            </div>
+          </div>
+          <p style="font-size:11px; color:var(--color-text-secondary); margin:6px 0 0; line-height:1.5;">Pour ton projet Swipe par exemple, GraphQL éviterait l'over-fetching sur le feed. Tu veux qu'on creuse ?</p>
+          <div style="margin-top:6px; display:flex; align-items:center; gap:4px;">
+            <div style="width:6px; height:6px; border-radius:50%; background:#534AB7;"></div>
+            <span style="font-size:10px; color:#534AB7;">Mémoire utilisée — contexte Swipe retenu</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- typing indicator -->
+      <div style="display:flex; gap:8px; align-items:center;">
+        <div style="width:26px; height:26px; border-radius:50%; background:#2a2850; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <i class="ti ti-robot" style="font-size:13px; color:#534AB7;" aria-hidden="true"></i>
+        </div>
+        <div style="background: var(--color-background-secondary); border-radius: 0 10px 10px 10px; padding: 10px 14px; display:flex; gap:4px; align-items:center;">
+          <div style="width:6px;height:6px;border-radius:50%;background:#534AB7;opacity:0.5;animation:dot 1.2s ease-in-out infinite;"></div>
+          <div style="width:6px;height:6px;border-radius:50%;background:#534AB7;opacity:0.5;animation:dot 1.2s ease-in-out 0.2s infinite;"></div>
+          <div style="width:6px;height:6px;border-radius:50%;background:#534AB7;opacity:0.5;animation:dot 1.2s ease-in-out 0.4s infinite;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- input bar -->
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 8px 12px; display:flex; align-items:center; gap:8px;">
+      <input type="text" placeholder="Envoie un message à Madeline..." style="flex:1; border:none; background:transparent; font-size:12px; outline:none; color:var(--color-text-secondary); font-family: var(--font-sans);" readonly>
+      <button style="background:#534AB7; border:none; border-radius:6px; padding:6px 10px; cursor:default; display:flex; align-items:center;">
+        <i class="ti ti-send" style="font-size:14px; color:#fff;" aria-hidden="true"></i>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

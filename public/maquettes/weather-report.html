@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="./_shared.css">
+</head>
+<body>
+
+<h2 class="sr-only">Maquette de l'application Weather Report — météo et recommandations d'activités contextualisées</h2>
+
+<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem; font-family: var(--font-sans); display:flex; flex-direction:column; gap:10px;">
+
+  <!-- topbar -->
+  <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 10px 16px; display:flex; align-items:center; justify-content:space-between;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <i class="ti ti-cloud" style="font-size:18px; color:#378ADD;" aria-hidden="true"></i>
+      <span style="font-size:14px; font-weight:500; color:var(--color-text-primary);">Weather Report</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:6px;">
+      <i class="ti ti-map-pin" style="font-size:14px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+      <span style="font-size:12px; color:var(--color-text-secondary);">Paris, Île-de-France</span>
+    </div>
+  </div>
+
+  <!-- main weather card -->
+  <div style="background:#185FA5; border-radius: var(--border-radius-md); padding: 20px 24px; display:flex; align-items:center; justify-content:space-between;">
+    <div>
+      <p style="font-size:11px; color:#B5D4F4; margin:0 0 4px; letter-spacing:0.5px;">AUJOURD'HUI — MERCREDI</p>
+      <div style="display:flex; align-items:flex-end; gap:6px; margin-bottom:8px;">
+        <span style="font-size:52px; font-weight:500; color:#fff; line-height:1;">17°</span>
+        <span style="font-size:16px; color:#85B7EB; margin-bottom:10px;">/ 12°</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <i class="ti ti-cloud-rain" style="font-size:16px; color:#85B7EB;" aria-hidden="true"></i>
+        <span style="font-size:13px; color:#B5D4F4;">Pluie intermittente</span>
+      </div>
+    </div>
+    <div style="text-align:right;">
+      <svg width="72" height="72" viewBox="0 0 72 72" aria-hidden="true">
+        <circle cx="36" cy="24" r="14" fill="#FAC775" opacity="0.3"/>
+        <ellipse cx="28" cy="38" rx="16" ry="10" fill="#fff" opacity="0.7"/>
+        <ellipse cx="40" cy="40" rx="18" ry="11" fill="#fff" opacity="0.9"/>
+        <ellipse cx="36" cy="44" rx="22" ry="10" fill="#fff"/>
+        <line x1="28" y1="54" x2="24" y2="62" stroke="#85B7EB" stroke-width="2" stroke-linecap="round"/>
+        <line x1="36" y1="56" x2="32" y2="64" stroke="#85B7EB" stroke-width="2" stroke-linecap="round"/>
+        <line x1="44" y1="54" x2="40" y2="62" stroke="#85B7EB" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div style="display:flex; flex-direction:column; gap:3px; margin-top:4px;">
+        <span style="font-size:10px; color:#B5D4F4; display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+          <i class="ti ti-droplet" style="font-size:11px;" aria-hidden="true"></i> Humidité 74%
+        </span>
+        <span style="font-size:10px; color:#B5D4F4; display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+          <i class="ti ti-wind" style="font-size:11px;" aria-hidden="true"></i> Vent 18 km/h
+        </span>
+        <span style="font-size:10px; color:#B5D4F4; display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+          <i class="ti ti-umbrella" style="font-size:11px;" aria-hidden="true"></i> Précip. 6 mm
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- forecast strip -->
+  <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 12px 16px;">
+    <p style="font-size:11px; color:var(--color-text-secondary); margin:0 0 10px; text-transform:uppercase; letter-spacing:0.5px;">Prévisions 5 jours</p>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:6px; text-align:center;">
+      <div style="padding:8px 4px; background:var(--color-background-secondary); border-radius:8px;">
+        <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 4px;">Jeu</p>
+        <i class="ti ti-cloud-rain" style="font-size:18px; color:#378ADD;" aria-hidden="true"></i>
+        <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:4px 0 0;">14°</p>
+      </div>
+      <div style="padding:8px 4px; background:var(--color-background-secondary); border-radius:8px;">
+        <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 4px;">Ven</p>
+        <i class="ti ti-cloud" style="font-size:18px; color:#888780;" aria-hidden="true"></i>
+        <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:4px 0 0;">16°</p>
+      </div>
+      <div style="padding:8px 4px; background:var(--color-background-secondary); border-radius:8px;">
+        <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 4px;">Sam</p>
+        <i class="ti ti-sun" style="font-size:18px; color:#EF9F27;" aria-hidden="true"></i>
+        <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:4px 0 0;">22°</p>
+      </div>
+      <div style="padding:8px 4px; background:var(--color-background-secondary); border-radius:8px;">
+        <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 4px;">Dim</p>
+        <i class="ti ti-sun" style="font-size:18px; color:#EF9F27;" aria-hidden="true"></i>
+        <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:4px 0 0;">24°</p>
+      </div>
+      <div style="padding:8px 4px; background:var(--color-background-secondary); border-radius:8px;">
+        <p style="font-size:10px; color:var(--color-text-secondary); margin:0 0 4px;">Lun</p>
+        <i class="ti ti-cloud" style="font-size:18px; color:#888780;" aria-hidden="true"></i>
+        <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:4px 0 0;">19°</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- recommandations -->
+  <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 12px 16px;">
+    <p style="font-size:11px; color:var(--color-text-secondary); margin:0 0 10px; text-transform:uppercase; letter-spacing:0.5px; display:flex; align-items:center; gap:6px;">
+      <i class="ti ti-map-2" style="font-size:13px;" aria-hidden="true"></i>
+      Activités recommandées — pluie aujourd'hui
+    </p>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
+
+      <div style="border-radius:8px; border: 0.5px solid var(--color-border-tertiary); padding:10px 12px; display:flex; gap:10px; align-items:flex-start;">
+        <div style="width:32px; height:32px; border-radius:8px; background:#2a2850; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <i class="ti ti-building" style="font-size:16px; color:#534AB7;" aria-hidden="true"></i>
+        </div>
+        <div>
+          <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:0 0 2px;">Musée d'Orsay</p>
+          <p style="font-size:10px; color:var(--color-text-secondary); margin:0; line-height:1.4;">Intérieur · 1.2 km · Ouvert</p>
+        </div>
+      </div>
+
+      <div style="border-radius:8px; border: 0.5px solid var(--color-border-tertiary); padding:10px 12px; display:flex; gap:10px; align-items:flex-start;">
+        <div style="width:32px; height:32px; border-radius:8px; background:#0d2b22; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+          <i class="ti ti-coffee" style="font-size:16px; color:#1D9E75;" aria-hidden="true"></i>
+        </div>
+        <div>
+          <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:0 0 2px;">Café Procope</p>
+          <p style="font-size:10px; color:var(--color-text-secondary); margin:0; line-height:1.4;">Intérieur · 0.8 km · Ouvert</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="background:#2a1e08; border-radius:8px; padding:10px 12px; display:flex; align-items:center; gap:10px; border: 0.5px solid #4a3510;">
+      <i class="ti ti-sun" style="font-size:20px; color:#EF9F27; flex-shrink:0;" aria-hidden="true"></i>
+      <div>
+        <p style="font-size:11px; font-weight:500; color:#EF9F27; margin:0 0 2px;">Samedi ensoleillé — activités extérieures</p>
+        <p style="font-size:10px; color:#a07040; margin:0; line-height:1.4;">Jardins de Versailles, Bois de Boulogne, vélo le long de la Seine...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- api sources -->
+  <div style="display:flex; gap:6px; align-items:center; padding: 0 2px;">
+    <span style="font-size:10px; color:var(--color-text-secondary);">Sources :</span>
+    <span style="font-size:10px; padding:2px 8px; border-radius:99px; background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); color:var(--color-text-secondary);">Open-Meteo</span>
+    <span style="font-size:10px; padding:2px 8px; border-radius:99px; background:var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); color:var(--color-text-secondary);">OpenStreetMap</span>
+    <span style="font-size:10px; color:var(--color-text-secondary); margin-left:2px;">· données temps réel</span>
+  </div>
+
+</div>
+
+</body>
+</html>

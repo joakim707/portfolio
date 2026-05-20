@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="./_shared.css">
+</head>
+<body>
+
+<h2 class="sr-only">Maquette de l'application Swipe — réseau social e-commerce avec scroll vertical et panier swipe</h2>
+
+<div style="background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1rem; display: flex; gap: 12px; justify-content: center; font-family: var(--font-sans);">
+
+  <!-- phone frame -->
+  <div style="width: 220px; flex-shrink:0;">
+    <div style="background:#111; border-radius:28px; padding: 8px; box-shadow: 0 0 0 1px #333;">
+      <div style="background:#000; border-radius:22px; overflow:hidden; position:relative; height:420px;">
+
+        <!-- video card -->
+        <div style="position:absolute; inset:0; background: linear-gradient(160deg, #1a1a2e, #16213e);">
+          <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0.3;">
+            <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="none" stroke="#fff" stroke-width="1.5"/><polygon points="19,16 35,24 19,32" fill="#fff"/></svg>
+          </div>
+
+          <!-- product tag -->
+          <div style="position:absolute; top:14px; left:12px; background:rgba(0,0,0,0.55); border-radius:99px; padding:4px 10px; display:flex; align-items:center; gap:6px;">
+            <i class="ti ti-tag" style="font-size:12px; color:#fff;" aria-hidden="true"></i>
+            <span style="font-size:11px; color:#fff; font-weight:500;">Air Jordan 1 Retro</span>
+          </div>
+
+          <!-- swipe hint -->
+          <div style="position:absolute; top:14px; right:12px; background:rgba(255,255,255,0.12); border-radius:99px; padding:4px 10px;">
+            <span style="font-size:10px; color:#fff;">← swipe</span>
+          </div>
+
+          <!-- user info bottom -->
+          <div style="position:absolute; bottom:0; left:0; right:0; padding:14px 12px; background:linear-gradient(transparent, rgba(0,0,0,0.8));">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <div style="width:28px; height:28px; border-radius:50%; background:#5DCAA5; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:500; color:#04342C;">SN</div>
+              <span style="font-size:12px; color:#fff; font-weight:500;">@sneaker.nova</span>
+              <span style="font-size:10px; color:rgba(255,255,255,0.6); border:0.5px solid rgba(255,255,255,0.3); border-radius:99px; padding:2px 8px;">Suivre</span>
+            </div>
+            <p style="font-size:11px; color:rgba(255,255,255,0.85); margin:0; line-height:1.4;">Ma paire du moment 🔥 Limited drop, lien en bio !</p>
+          </div>
+
+          <!-- right actions -->
+          <div style="position:absolute; right:10px; bottom:80px; display:flex; flex-direction:column; align-items:center; gap:14px;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+              <i class="ti ti-heart" style="font-size:22px; color:#fff;" aria-hidden="true"></i>
+              <span style="font-size:10px; color:#fff;">4.2k</span>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+              <i class="ti ti-message-circle" style="font-size:22px; color:#fff;" aria-hidden="true"></i>
+              <span style="font-size:10px; color:#fff;">312</span>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+              <i class="ti ti-share" style="font-size:22px; color:#fff;" aria-hidden="true"></i>
+              <span style="font-size:10px; color:#fff;">Partager</span>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+              <div style="width:28px; height:28px; border-radius:6px; background:#5DCAA5; display:flex; align-items:center; justify-content:center;">
+                <i class="ti ti-shopping-bag" style="font-size:14px; color:#04342C;" aria-hidden="true"></i>
+              </div>
+              <span style="font-size:10px; color:#fff;">Acheter</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- bottom nav -->
+        <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.9); padding:8px 0 10px; display:flex; justify-content:space-around; border-top:0.5px solid rgba(255,255,255,0.1);">
+          <i class="ti ti-home" style="font-size:20px; color:#fff;" aria-hidden="true"></i>
+          <i class="ti ti-search" style="font-size:20px; color:rgba(255,255,255,0.4);" aria-hidden="true"></i>
+          <div style="width:28px; height:28px; border-radius:6px; background:#5DCAA5; display:flex; align-items:center; justify-content:center;">
+            <i class="ti ti-plus" style="font-size:16px; color:#04342C;" aria-hidden="true"></i>
+          </div>
+          <i class="ti ti-shopping-cart" style="font-size:20px; color:rgba(255,255,255,0.4);" aria-hidden="true"></i>
+          <i class="ti ti-user" style="font-size:20px; color:rgba(255,255,255,0.4);" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:11px; color:var(--color-text-secondary); margin-top:8px;">Feed principal — scroll vertical</p>
+  </div>
+
+  <!-- right panel -->
+  <div style="display:flex; flex-direction:column; gap:10px; flex:1; min-width:0;">
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 12px 14px;">
+      <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:0 0 10px; display:flex; align-items:center; gap:6px;">
+        <i class="ti ti-gesture-swipe-left" style="font-size:15px;" aria-hidden="true"></i>
+        Swipe horizontal → panier
+      </p>
+      <div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;">
+        <div style="width:40px; height:52px; border-radius:6px; background:#1a1a2e; flex-shrink:0; display:flex; align-items:center; justify-content:center;">
+          <i class="ti ti-player-play" style="font-size:14px; color:rgba(255,255,255,0.5);" aria-hidden="true"></i>
+        </div>
+        <i class="ti ti-arrow-right" style="font-size:16px; color:var(--color-text-secondary);" aria-hidden="true"></i>
+        <div style="flex:1; background: var(--color-background-secondary); border-radius:6px; padding:6px 8px;">
+          <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0;">Air Jordan 1 Retro</p>
+          <p style="font-size:10px; color:var(--color-text-secondary); margin:2px 0 0;">Taille 42 · 189 €</p>
+        </div>
+        <div style="width:24px; height:24px; border-radius:50%; background:#0d2b22; display:flex; align-items:center; justify-content:center;">
+          <i class="ti ti-check" style="font-size:12px; color:#1D9E75;" aria-hidden="true"></i>
+        </div>
+      </div>
+      <p style="font-size:10px; color:var(--color-text-secondary); margin:0; line-height:1.5;">Swiper une publication vers la gauche ajoute instantanément le produit associé au panier sans quitter le feed.</p>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 12px 14px;">
+      <p style="font-size:12px; font-weight:500; color:var(--color-text-primary); margin:0 0 10px; display:flex; align-items:center; gap:6px;">
+        <i class="ti ti-shopping-cart" style="font-size:15px;" aria-hidden="true"></i>
+        Panier (2 articles)
+      </p>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:0.5px solid var(--color-border-tertiary);">
+        <div>
+          <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0;">Air Jordan 1 Retro</p>
+          <p style="font-size:10px; color:var(--color-text-secondary); margin:2px 0 0;">T.42</p>
+        </div>
+        <span style="font-size:12px; font-weight:500; color:var(--color-text-primary);">189 €</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:0.5px solid var(--color-border-tertiary);">
+        <div>
+          <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0;">Hoodie Oversize</p>
+          <p style="font-size:10px; color:var(--color-text-secondary); margin:2px 0 0;">Taille M · Noir</p>
+        </div>
+        <span style="font-size:12px; font-weight:500; color:var(--color-text-primary);">65 €</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:8px;">
+        <span style="font-size:12px; font-weight:500; color:var(--color-text-primary);">Total</span>
+        <span style="font-size:14px; font-weight:500; color:#1D9E75;">254 €</span>
+      </div>
+    </div>
+
+    <div style="background: var(--color-background-primary); border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); padding: 10px 14px; display:flex; align-items:center; gap:10px;">
+      <i class="ti ti-lock" style="font-size:18px; color:#378ADD;" aria-hidden="true"></i>
+      <div>
+        <p style="font-size:11px; font-weight:500; color:var(--color-text-primary); margin:0;">Auth sécurisée — JWT</p>
+        <p style="font-size:10px; color:var(--color-text-secondary); margin:2px 0 0;">Token rafraîchi automatiquement · Sessions persistantes</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

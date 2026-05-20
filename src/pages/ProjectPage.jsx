@@ -1,8 +1,16 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { getProject } from '../data/projects'
-import { MOCKUPS } from '../components/mockups'
 import Footer from '../components/Footer'
+
+const MOCKUP_HEIGHTS = {
+  healthai:             430,
+  swipe:                490,
+  madeline:             450,
+  'weather-report':     510,
+  'gestionnaire-ia':    440,
+  'corrige-tes-cours':  470,
+}
 
 const STATUS_MAP = {
   done:    { label: 'TERMINÉ',   cls: 'status-done' },
@@ -25,8 +33,8 @@ export default function ProjectPage() {
     )
   }
 
-  const Mockup = MOCKUPS[slug]
   const status = STATUS_MAP[project.status]
+  const iframeHeight = MOCKUP_HEIGHTS[slug] ?? 440
 
   return (
     <div className="page-wrapper">
@@ -50,12 +58,13 @@ export default function ProjectPage() {
       <div className="project-page-body">
         {/* Left: mockup */}
         <div>
-          <div className="mockup-frame reveal">
-            {Mockup ? <Mockup /> : (
-              <div style={{ width: 280, height: 180, background: 'var(--bg3)', border: '2px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontFamily: 'var(--pixel)', fontSize: '8px', color: 'var(--dim)' }}>MOCKUP À VENIR</span>
-              </div>
-            )}
+          <div className="mockup-frame reveal" style={{ padding: 0, display: 'block' }}>
+            <iframe
+              src={`/maquettes/${slug}.html`}
+              title={`Maquette ${project.title}`}
+              style={{ width: '100%', height: `${iframeHeight}px`, border: 'none', display: 'block' }}
+              loading="lazy"
+            />
           </div>
           {project.github && (
             <a
