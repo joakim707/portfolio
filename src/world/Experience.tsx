@@ -23,7 +23,9 @@ function ReadySignal() {
 /** DEV: exposes the final camera position of each frame to browser tests. */
 function DevProbe() {
   useFrame(({ camera }) => {
-    ;(window as unknown as { __cam?: number[] }).__cam = camera.position.toArray()
+    const w = window as unknown as { __cam?: number[]; __camObj?: unknown }
+    w.__cam = camera.position.toArray()
+    w.__camObj = camera
   })
   return null
 }

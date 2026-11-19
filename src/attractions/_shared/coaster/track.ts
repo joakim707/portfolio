@@ -26,12 +26,15 @@ export class TrackBuilder {
   private readonly start: Vector3
   private readonly startHeading: number
 
-  constructor(start: Vector3, heading: number, step = 0.5) {
+  constructor(start: Vector3, heading: number, step = 0.5, startLabel: TrackLabel = 'station') {
     this.p = start.clone()
     this.a = heading
     this.step = step
     this.start = start.clone()
     this.startHeading = heading
+    // the start point itself is sample 0, so arc length s = 0 is exactly `start`
+    // (stop marks such as STATION_S are measured from there)
+    this.push(start, startLabel)
   }
 
   get position() {
