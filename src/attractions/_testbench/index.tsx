@@ -1,13 +1,14 @@
-import { useLayoutEffect, useMemo, useRef } from 'react'
-import { CuboidCollider, CylinderCollider, RigidBody } from '@react-three/rapier'
-import { BoxGeometry, CatmullRomCurve3, InstancedMesh, Matrix4, MeshStandardMaterial, Vector3 } from 'three'
+import { useMemo } from 'react'
+import { CuboidCollider, RigidBody } from '@react-three/rapier'
+import { Vector3 } from 'three'
 import type { AttractionId } from '@/data/attractions'
 import { Ride } from '@/core/rides/Ride'
 import { DEFAULT_TIMINGS, type RideConfig } from '@/core/rides/types'
 import { MAT } from '@/world/materials'
 import { useSignTexture } from '@/utils/textTexture'
-import { TestCoaster } from './TestCoaster'
-import { TrackBuilder, buildTrack, type Track } from './track'
+import { CoasterTrain } from '@/attractions/_shared/coaster/CoasterTrain'
+import { TrackMesh } from '@/attractions/_shared/coaster/TrackMesh'
+import { TrackBuilder, buildTrack, type Track } from '@/attractions/_shared/coaster/track'
 
 /**
  * DEV-ONLY test bench (étape 4): a compact coaster that exercises the whole
@@ -53,75 +54,6 @@ const CONFIG: RideConfig = {
   idleCycleEvery: 25,
 }
 
-const tieGeo = new BoxGeometry(1.1, 0.08, 0.14)
-const railMat = new MeshStandardMaterial({ color: '#9aa3ad', metalness: 0.8, roughness: 0.3 })
-const spineMat = new MeshStandardMaterial({ color: '#ff4d6d', metalness: 0.3, roughness: 0.5 })
-
-function TrackMesh({ track }: { track: Track }) {
-  const { left, right, spine, supports } = useMemo(() => {
-    const step = 3
-    const L: Vector3[] = []
-    const R: Vector3[] = []
-    const S: Vector3[] = []
-    for (let i = 0; i < track.segments; i += step) {
-      const p = track.points[i]
-      L.push(p.clone().addScaledVector(track.binormals[i], -0.45))
-      R.push(p.clone().addScaledVector(track.binormals[i], 0.45))
-      S.push(p.clone().addScaledVector(track.normals[i], -0.3))
-    }
-    const supports: Vector3[] = []
-    for (let i = 0; i < track.segments; i += 14) {
-      const p = track.points[i]
-      if (track.labels[i] === 'loop' || p.y < 1.4 || track.normals[i].y < 0.5) continue
-      supports.push(p.clone().addScaledVector(track.normals[i], -0.3))
-    }
-    const mk = (pts: Vector3[]) => new CatmullRomCurve3(pts, true, 'centripetal')
-    return { left: mk(L), right: mk(R), spine: mk(S), supports }
-  }, [track])
-
-  const ties = useRef<InstancedMesh>(null)
-  const tieCount = Math.floor(track.segments / 2)
-  useLayoutEffect(() => {
-    const m = new Matrix4()
-    for (let k = 0; k < tieCount; k++) {
-      const i = k * 2
-      const t = track.tangents[i]
-      m.makeBasis(track.binormals[i], track.normals[i], t.clone().negate()).setPosition(
-        track.points[i].clone().addScaledVector(track.normals[i], -0.06),
-      )
-      ties.current!.setMatrixAt(k, m)
-    }
-    ties.current!.instanceMatrix.needsUpdate = true
-    ties.current!.computeBoundingSphere()
-  }, [track, tieCount])
-
-  return (
-    <group>
-      <mesh material={railMat} castShadow>
-        <tubeGeometry args={[left, 600, 0.06, 6, true]} />
-      </mesh>
-      <mesh material={railMat} castShadow>
-        <tubeGeometry args={[right, 600, 0.06, 6, true]} />
-      </mesh>
-      <mesh material={spineMat} castShadow>
-        <tubeGeometry args={[spine, 600, 0.16, 8, true]} />
-      </mesh>
-      <instancedMesh ref={ties} args={[tieGeo, MAT.darkMetal, tieCount]} castShadow />
-      {supports.map((p, i) => (
-        <mesh key={i} position={[p.x, p.y / 2, p.z]} material={MAT.darkMetal} castShadow>
-          <cylinderGeometry args={[0.14, 0.2, p.y, 8]} />
-        </mesh>
-      ))}
-      {/* loop base columns */}
-      <RigidBody type="fixed" colliders={false}>
-        {supports.map((p, i) => (
-          <CylinderCollider key={i} args={[p.y / 2, 0.3]} position={[p.x, p.y / 2, p.z]} />
-        ))}
-      </RigidBody>
-    </group>
-  )
-}
-
 function Station() {
   const sign = useSignTexture("BANC D'ESSAI", 'Système générique d’attractions · dev', { accent: '#f6c445' })
   return (
@@ -165,8 +97,14 @@ function Station() {
 export default function TestBench({ id }: { id: AttractionId }) {
   const track = useMemo(makeTrack, [])
   return (
-    <Ride id={id} config={CONFIG} createSimulation={() => new TestCoaster(track, { ...DEFAULT_TIMINGS, ...CONFIG.timings })}>
-      <TrackMesh track={track} />
+    <Ride
+      id={id}
+      config={CONFIG}
+      createSimulation={() =>
+        new CoasterTrain({ track, timings: { ...DEFAULT_TIMINGS, ...CONFIG.timings }, stationS: 6, cars: 1, spacing: 2.6, playerCar: 0, liftSpeed: 3, launchSpeed: 3, brakeSpeed: 4, minInversionSpeed: 5, drag: 0.008 })
+      }
+    >
+      <TrackMesh track={track} supportEvery={4} colliders />
       <Station />
     </Ride>
   )

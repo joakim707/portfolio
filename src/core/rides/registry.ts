@@ -18,7 +18,7 @@ export interface AttractionModule {
 }
 
 export const ATTRACTION_MODULES: Partial<Record<AttractionId, () => Promise<AttractionModule>>> = {
-  // predictor: () => import('@/attractions/predictor'),  ← étape 5
+  predictor: () => import('@/attractions/predictor'),
 }
 
 /**
