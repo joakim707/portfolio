@@ -8,10 +8,23 @@ export default defineConfig({
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
     // Vite 8 pre-bundling can otherwise hand zustand its own React copy (invalid hook call).
-    dedupe: ['react', 'react-dom', 'three'],
+    dedupe: ['react', 'react-dom', 'three', '@react-three/fiber'],
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-dom/client', 'zustand', 'zustand/middleware'],
+    // Pre-bundle every 3D dependency up front: discovering one later triggers a
+    // re-optimisation that can split @react-three/fiber into two copies.
+    include: [
+      'react',
+      'react-dom',
+      'react-dom/client',
+      'zustand',
+      'zustand/middleware',
+      'three',
+      '@react-three/fiber',
+      '@react-three/drei',
+      '@react-three/rapier',
+      'gsap',
+    ],
   },
   build: {
     sourcemap: true,

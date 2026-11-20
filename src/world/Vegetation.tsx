@@ -1,15 +1,12 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { CylinderCollider, RigidBody } from '@react-three/rapier'
-import { ConeGeometry, CylinderGeometry, IcosahedronGeometry, InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
+import { InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
 import { ENTRANCE_Z, PARK_RADIUS } from '@/config/park'
 import { QUALITY_PRESETS, useGameStore } from '@/core/store/useGameStore'
 import { createRng } from '@/utils/random'
 import { insidePark, isFreeGround } from './layout'
-import { MAT } from './materials'
+import { useKenney } from './assets'
 
-const trunkGeo = new CylinderGeometry(0.25, 0.4, 1, 6).translate(0, 0.5, 0)
-const pineGeo = new ConeGeometry(1, 1, 7).translate(0, 0.5, 0)
-const roundGeo = new IcosahedronGeometry(1, 1)
 
 interface Tree {
   x: number
@@ -47,44 +44,45 @@ function generateTrees(count: number): Tree[] {
 }
 
 /** Instanced trees: one draw call per part. Colliders only for trees inside the park. */
+/** Kenney trees, uniformly scaled to each tree's height, with a random yaw. */
 export function Vegetation() {
   const quality = useGameStore((s) => s.quality)
   const count = QUALITY_PRESETS[quality].trees
   const trees = useMemo(() => generateTrees(count), [count])
-  const pines = useMemo(() => trees.filter((t) => t.pine), [trees])
-  const rounds = useMemo(() => trees.filter((t) => !t.pine), [trees])
+  // "pine" trees use the tall model, the others the round one
+  const tall = useMemo(() => trees.filter((t) => t.pine), [trees])
+  const round = useMemo(() => trees.filter((t) => !t.pine), [trees])
+  const tallModel = useKenney('tree-large')
+  const roundModel = useKenney('tree')
 
-  const trunkRef = useRef<InstancedMesh>(null)
-  const pineRef = useRef<InstancedMesh>(null)
+  const tallRef = useRef<InstancedMesh>(null)
   const roundRef = useRef<InstancedMesh>(null)
 
   useLayoutEffect(() => {
     const m = new Matrix4()
     const q = new Quaternion()
+    const up = new Vector3(0, 1, 0)
     const p = new Vector3()
     const s = new Vector3()
-    trees.forEach((t, i) => {
-      trunkRef.current!.setMatrixAt(i, m.compose(p.set(t.x, 0, t.z), q, s.set(1, t.h * 0.45, 1)))
-    })
-    pines.forEach((t, i) => {
-      pineRef.current!.setMatrixAt(i, m.compose(p.set(t.x, t.h * 0.3, t.z), q, s.set(t.w, t.h * 0.85, t.w)))
-    })
-    rounds.forEach((t, i) => {
-      roundRef.current!.setMatrixAt(i, m.compose(p.set(t.x, t.h * 0.62, t.z), q, s.set(t.w * 1.15, t.h * 0.42, t.w * 1.15)))
-    })
-    for (const r of [trunkRef, pineRef, roundRef]) {
-      r.current!.instanceMatrix.needsUpdate = true
-      r.current!.computeBoundingSphere()
+    const fill = (list: typeof trees, model: typeof tallModel, ref: typeof tallRef, heightFactor: number) => {
+      list.forEach((t, i) => {
+        const k = (t.h * heightFactor) / model.size.y
+        q.setFromAxisAngle(up, ((t.x * 12.9898 + t.z * 78.233) % 6.283) + 6.283)
+        ref.current!.setMatrixAt(i, m.compose(p.set(t.x, 0, t.z), q, s.set(k, k, k)))
+      })
+      ref.current!.instanceMatrix.needsUpdate = true
+      ref.current!.computeBoundingSphere()
     }
-  }, [trees, pines, rounds])
+    fill(tall, tallModel, tallRef, 1.15)
+    fill(round, roundModel, roundRef, 0.95)
+  }, [tall, round, tallModel, roundModel])
 
   const inside = trees.filter((t) => t.inside && insidePark(t.x, t.z))
 
   return (
     <group>
-      <instancedMesh key={`t${count}`} ref={trunkRef} args={[trunkGeo, MAT.trunk, trees.length]} castShadow />
-      <instancedMesh key={`p${count}`} ref={pineRef} args={[pineGeo, MAT.leavesDark, Math.max(1, pines.length)]} castShadow />
-      <instancedMesh key={`r${count}`} ref={roundRef} args={[roundGeo, MAT.leaves, Math.max(1, rounds.length)]} castShadow />
+      <instancedMesh key={`t${count}`} ref={tallRef} args={[tallModel.geometry, tallModel.material, Math.max(1, tall.length)]} castShadow receiveShadow />
+      <instancedMesh key={`r${count}`} ref={roundRef} args={[roundModel.geometry, roundModel.material, Math.max(1, round.length)]} castShadow receiveShadow />
       <RigidBody key={`c${count}`} type="fixed" colliders={false}>
         {inside.map((t, i) => (
           <CylinderCollider key={i} args={[2, 0.45]} position={[t.x, 2, t.z]} />

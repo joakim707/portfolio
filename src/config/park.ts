@@ -36,15 +36,15 @@ export const POND = { x: 0, z: -44, radius: 9 }
 
 /** Stands sit just outside the promenade, between two radial paths, facing the promenade. */
 export const STAND_RING = PROMENADE_RADIUS + 9
-export const STANDS: { angle: number; kind: 'popcorn' | 'icecream' | 'churros' | 'shop' | 'drinks' | 'candy' | 'photo' | 'info' }[] = [
+export const STANDS: { angle: number; kind: 'popcorn' | 'icecream' | 'churros' | 'toilets' | 'drinks' | 'candy' | 'info' }[] = [
   { angle: -165, kind: 'info' },
   { angle: -128.5, kind: 'popcorn' },
   { angle: -85.5, kind: 'drinks' },
   { angle: -42.5, kind: 'icecream' },
-  { angle: 0, kind: 'shop' },
+  { angle: 0, kind: 'toilets' },
   { angle: 42.5, kind: 'churros' },
   { angle: 85.5, kind: 'candy' },
-  { angle: 128.5, kind: 'photo' },
+  { angle: 128.5, kind: 'info' },
   { angle: 165, kind: 'drinks' },
 ]
 

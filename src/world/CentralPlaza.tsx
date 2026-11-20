@@ -1,13 +1,13 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { CuboidCollider, CylinderCollider, RigidBody } from '@react-three/rapier'
-import { BoxGeometry, Group, InstancedMesh, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
+import { Group, InstancedMesh, Matrix4, Mesh, Quaternion, Vector3 } from 'three'
 import { PLAZA_RADIUS } from '@/config/park'
 import { useDistanceGate } from '@/utils/useDistanceGate'
 import { useSignTexture } from '@/utils/textTexture'
 import { hologramMaterial, MAT } from './materials'
+import { useKenney } from './assets'
 
-const benchGeo = new BoxGeometry(3, 0.5, 0.9)
 const BENCHES = 12
 const KIOSK_ANGLES = [45, 135, 225, 315]
 
@@ -78,23 +78,17 @@ function Fountain() {
   )
 }
 
-function Kiosk({ angle }: { angle: number }) {
+const KIOSK_SCALE = 2.6
+
+/** Snack / drinks kiosks around the plaza (Kenney stalls), serving towards the fountain. */
+function Kiosk({ angle, drinks }: { angle: number; drinks: boolean }) {
+  const model = useKenney(drinks ? 'stall-drinks' : 'stall-food')
   const a = (angle * Math.PI) / 180
   const r = PLAZA_RADIUS - 5
+  // group +Z points away from the fountain; the stall's front (-Z) therefore faces it
   return (
     <group position={[Math.sin(a) * r, 0, -Math.cos(a) * r]} rotation-y={-a + Math.PI}>
-      <mesh position-y={1.3} material={MAT.white} castShadow receiveShadow>
-        <boxGeometry args={[3.6, 2.6, 2.6]} />
-      </mesh>
-      <mesh position={[0, 1.6, 1.31]} material={MAT.navy}>
-        <planeGeometry args={[2.8, 1]} />
-      </mesh>
-      <mesh position-y={3.4} material={MAT.brand} castShadow>
-        <coneGeometry args={[3.2, 1.8, 8]} />
-      </mesh>
-      <mesh position-y={4.5} material={MAT.gold}>
-        <sphereGeometry args={[0.3, 12, 8]} />
-      </mesh>
+      <mesh geometry={model.geometry} material={model.material} scale={KIOSK_SCALE} castShadow receiveShadow />
     </group>
   )
 }
@@ -102,17 +96,18 @@ function Kiosk({ angle }: { angle: number }) {
 /** Paved central plaza: fountain + holographic globe, benches, food kiosks, welcome sign. */
 export function CentralPlaza() {
   const benches = useRef<InstancedMesh>(null)
+  const bench = useKenney('bench')
   const welcome = useSignTexture('PLACE CENTRALE', '8 attractions · 8 projets', { background: '#ffffff', color: '#1d2b53' })
 
   useLayoutEffect(() => {
     const m = new Matrix4()
     const q = new Quaternion()
     const up = new Vector3(0, 1, 0)
-    const s = new Vector3(1, 1, 1)
+    const s = new Vector3(2.6, 2.6, 2.6)
     for (let i = 0; i < BENCHES; i++) {
       const a = ((i + 0.5) / BENCHES) * Math.PI * 2
       q.setFromAxisAngle(up, a)
-      benches.current!.setMatrixAt(i, m.compose(new Vector3(Math.sin(a) * 12, 0.45, Math.cos(a) * 12), q, s))
+      benches.current!.setMatrixAt(i, m.compose(new Vector3(Math.sin(a) * 12, 0, Math.cos(a) * 12), q, s))
     }
     benches.current!.instanceMatrix.needsUpdate = true
     benches.current!.computeBoundingSphere()
@@ -131,9 +126,9 @@ export function CentralPlaza() {
       </mesh>
 
       <Fountain />
-      <instancedMesh ref={benches} args={[benchGeo, MAT.wood, BENCHES]} castShadow receiveShadow />
-      {KIOSK_ANGLES.map((a) => (
-        <Kiosk key={a} angle={a} />
+      <instancedMesh ref={benches} args={[bench.geometry, bench.material, BENCHES]} castShadow receiveShadow />
+      {KIOSK_ANGLES.map((a, i) => (
+        <Kiosk key={a} angle={a} drinks={i % 2 === 1} />
       ))}
 
       {/* welcome panel facing the avenue */}
@@ -155,7 +150,7 @@ export function CentralPlaza() {
           return (
             <CuboidCollider
               key={angle}
-              args={[1.8, 1.5, 1.3]}
+              args={[1.4, 1.5, 1.4]}
               position={[Math.sin(a) * r, 1.5, -Math.cos(a) * r]}
               rotation={[0, -a + Math.PI, 0]}
             />

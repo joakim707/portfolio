@@ -4,6 +4,7 @@ import { CuboidCollider, CylinderCollider, RigidBody } from '@react-three/rapier
 import {
   BoxGeometry,
   BufferGeometry,
+  type Material,
   CircleGeometry,
   Color,
   CylinderGeometry,
@@ -23,10 +24,10 @@ import { createRng } from '@/utils/random'
 import { useDistanceGate } from '@/utils/useDistanceGate'
 import { isFreeGround } from './layout'
 import { MAT } from './materials'
+import { useKenney } from './assets'
 
 const unitBox = new BoxGeometry(1, 1, 1)
 const flowerGeo = new IcosahedronGeometry(0.22, 0)
-const binGeo = new CylinderGeometry(0.3, 0.26, 0.9, 10).translate(0, 0.45, 0)
 const patchGeo = new CircleGeometry(1, 10).rotateX(-Math.PI / 2)
 const bannerGeo = new PlaneGeometry(1.2, 3).translate(0.6, -1.5, 0)
 const poleGeo = new CylinderGeometry(0.07, 0.09, 6, 6).translate(0, 3, 0)
@@ -51,7 +52,7 @@ function StaticInstances({
   matrices: Matrix4[]
   colors?: Color[]
   geometry: BufferGeometry
-  material: MeshStandardMaterial
+  material: MeshStandardMaterial | Material
   castShadow?: boolean
 }) {
   const ref = useRef<InstancedMesh>(null)
@@ -134,8 +135,11 @@ function FlowerBeds() {
   )
 }
 
-/** Benches and bins along the avenue, facing the walkway. */
+/** Kenney benches and bins along the avenue, facing the walkway. */
+const BENCH_SCALE = 2.6
 function StreetFurniture() {
+  const bench = useKenney('bench')
+  const trash = useKenney('trash')
   const { benches, bins, colliders } = useMemo(() => {
     const benches: Matrix4[] = []
     const bins: Matrix4[] = []
@@ -143,20 +147,21 @@ function StreetFurniture() {
     for (let z = 51; z < ENTRANCE_Z - 14; z += 28) {
       for (const s of [-1, 1]) {
         const x = s * 7.9
-        benches.push(compose(x, 0.45, z, 0.9, 0.5, 3))
-        bins.push(compose(x, 0, z + 2.4))
-        colliders.push([x, 0.45, z])
+        // the model is long along X: turn it along the avenue, seat facing the walkway
+        benches.push(compose(x, 0, z, BENCH_SCALE, BENCH_SCALE, BENCH_SCALE, (s * Math.PI) / 2))
+        bins.push(compose(x, 0, z + 2.4, 2.2, 2.2, 2.2))
+        colliders.push([x, 0.6, z])
       }
     }
     return { benches, bins, colliders }
   }, [])
   return (
     <group>
-      <StaticInstances matrices={benches} geometry={unitBox} material={MAT.wood} />
-      <StaticInstances matrices={bins} geometry={binGeo} material={MAT.darkMetal} />
+      <StaticInstances matrices={benches} geometry={bench.geometry} material={bench.material} />
+      <StaticInstances matrices={bins} geometry={trash.geometry} material={trash.material} />
       <RigidBody type="fixed" colliders={false}>
         {colliders.map((p, i) => (
-          <CuboidCollider key={i} args={[0.45, 0.45, 1.5]} position={p} />
+          <CuboidCollider key={i} args={[0.65, 0.6, 1.05]} position={p} />
         ))}
       </RigidBody>
     </group>
