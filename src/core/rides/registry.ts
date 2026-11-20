@@ -21,6 +21,7 @@ export const ATTRACTION_MODULES: Partial<Record<AttractionId, () => Promise<Attr
   predictor: () => import('@/attractions/predictor'),
   skyfall: () => import('@/attractions/skyfall'),
   'titan-swing': () => import('@/attractions/titan'),
+  vortex: () => import('@/attractions/vortex'),
 }
 
 /**
