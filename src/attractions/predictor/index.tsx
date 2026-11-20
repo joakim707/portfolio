@@ -1,49 +1,14 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useMemo, useRef } from 'react'
 import type { AttractionId } from '@/data/attractions'
 import { Ride } from '@/core/rides/Ride'
 import { DEFAULT_TIMINGS } from '@/core/rides/types'
-import { useGameStore } from '@/core/store/useGameStore'
-import { rideRuntimes } from '@/core/rides/runtime'
-import { rideAudio } from '@/core/audio/rideAudio'
+import { useRideSound } from '@/core/audio/useRideSound'
 import { CoasterTrain } from '@/attractions/_shared/coaster/CoasterTrain'
 import { TrackMesh } from '@/attractions/_shared/coaster/TrackMesh'
 import { useKenney } from '@/world/assets'
 import { CAR_SPACING, CARS, GAUGE, KENNEY_SCALE, PREDICTOR_CONFIG, SEATS, STATION_S, buildPredictorTrack } from './layout'
 import { Station } from './Station'
 import { Tunnel } from './Tunnel'
-
-/** Drives the on-board sound from the train state (only while the visitor rides this attraction). */
-function useRideSound(id: AttractionId, train: () => CoasterTrain | null) {
-  const lastState = useRef<string | null>(null)
-  useEffect(() => () => rideAudio.setActive(false), [])
-  useFrame((_, dt) => {
-    const s = useGameStore.getState()
-    const mine = s.activeRide?.id === id
-    const t = train()
-    if (!mine || !t) {
-      if (lastState.current !== null) rideAudio.setActive(false)
-      lastState.current = null
-      return
-    }
-    const state = rideRuntimes.get(id)?.state ?? 'IDLE'
-    if (lastState.current === null) {
-      rideAudio.unlock() // boarding was a user gesture (E / click)
-      rideAudio.setActive(true)
-    }
-    if (state === 'STARTING' && lastState.current !== 'STARTING') rideAudio.bell()
-    lastState.current = state
-    rideAudio.update(
-      {
-        speed: state === 'RUNNING' || state === 'BRAKING' ? t.getSpeed() : 0,
-        onChain: state === 'RUNNING' && t.chainEngaged,
-        braking: state === 'BRAKING' || (state === 'RUNNING' && t.trackLabel === 'brake'),
-        level: s.phase === 'paused' ? 0 : 1,
-      },
-      Math.min(dt, 0.1),
-    )
-  })
-}
 
 /**
  * THE PREDICTOR — SmartGamble.
@@ -54,7 +19,15 @@ export default function Predictor({ id }: { id: AttractionId }) {
   const track = useMemo(buildPredictorTrack, [])
   const trainRef = useRef<CoasterTrain | null>(null)
   const train = () => trainRef.current
-  useRideSound(id, train)
+  useRideSound(id, (state) => {
+    const t = train()
+    if (!t) return null
+    return {
+      speed: state === 'RUNNING' || state === 'BRAKING' ? t.getSpeed() : 0,
+      lifting: state === 'RUNNING' && t.chainEngaged,
+      braking: state === 'BRAKING' || (state === 'RUNNING' && t.trackLabel === 'brake'),
+    }
+  })
   const frontCar = useKenney('coaster-train-front')
   const car = useKenney('coaster-train')
 
