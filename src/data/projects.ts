@@ -3,7 +3,8 @@
  *
  * RULE: only facts provided by Joakim go here. Anything not provided yet is
  * left null / empty and the UI shows "à compléter" — never invent details.
- * Sources so far: previous portfolio (src/data/projects.js) and the CV page.
+ * Sources so far: previous portfolio (src/data/projects.js), the CV page, and
+ * the SmartGamble sheet written by Joakim (Nov 2026).
  */
 export type ProjectStatus = 'done' | 'wip' | 'concept' | 'upcoming'
 
@@ -22,6 +23,14 @@ export interface Project {
   demo: string | null
   status: ProjectStatus
   context: string | null
+  /** Project type, e.g. "Projet professionnel — Stage de développement web". */
+  kind: string | null
+  role: string | null
+  period: string | null
+  /** What Joakim personally did: area → description. */
+  contributions: { area: string; text: string }[]
+  skills: string[]
+  learnings: string | null
 }
 
 const empty = {
@@ -36,6 +45,12 @@ const empty = {
   github: null,
   demo: null,
   context: null,
+  kind: null,
+  role: null,
+  period: null,
+  contributions: [],
+  skills: [],
+  learnings: null,
 } satisfies Partial<Project>
 
 export const PROJECTS: Project[] = [
@@ -43,7 +58,52 @@ export const PROJECTS: Project[] = [
     ...empty,
     slug: 'smartgamble',
     title: 'SmartGamble',
-    status: 'wip',
+    tagline: "Application web d'analyse et de statistiques footballistiques.",
+    kind: 'Projet professionnel — Stage de développement web',
+    context: 'Afinum — EPSI WIS Paris',
+    period: 'Avril – Juillet 2026',
+    role: 'Développeur Full Stack',
+    description:
+      "SmartGamble est une plateforme web dédiée à l'analyse de matchs de football. Elle centralise différentes données sportives pour permettre aux utilisateurs de consulter les performances des équipes, les statistiques des joueurs, les compositions et les rencontres.",
+    problem:
+      "L'objectif était de transformer des données sportives brutes en informations structurées, accessibles et facilement exploitables à travers une interface web.",
+    stack: ['Next.js', 'React', 'TypeScript', 'Python', 'PostgreSQL', 'GitHub Actions', 'Git', 'GitHub'],
+    features: [
+      'Consultation des matchs de football.',
+      'Affichage des statistiques des équipes et des joueurs.',
+      "Consultation des compositions d'équipes.",
+      'Récupération et traitement automatisés des données sportives.',
+      'Stockage et organisation des informations dans PostgreSQL.',
+      'Actualisation automatique des données toutes les 12 heures.',
+    ],
+    contributions: [
+      { area: 'Développement web', text: 'Création et intégration de fonctionnalités avec Next.js et TypeScript.' },
+      {
+        area: 'Traitement des données',
+        text: 'Utilisation de scripts Python pour récupérer et structurer les informations relatives aux matchs, aux statistiques, aux performances et aux compositions.',
+      },
+      { area: 'Base de données', text: "Exploitation de PostgreSQL pour organiser les données sportives et faciliter leur utilisation dans l'application." },
+      { area: 'Automatisation', text: "Mise en place d'un système d'actualisation périodique des données avec GitHub Actions." },
+    ],
+    challenges:
+      "L'un des principaux enjeux du projet était la gestion des données sportives : leur récupération, leur organisation et leur actualisation. Il fallait également assurer la cohérence des informations entre les scripts Python, la base PostgreSQL et l'interface Next.js.",
+    solutions:
+      'La mise en place d’une actualisation automatique toutes les 12 heures a permis de limiter les interventions manuelles et de rendre le processus de collecte plus régulier.',
+    skills: [
+      'Développement Full Stack',
+      'TypeScript',
+      'React',
+      'Next.js',
+      'Python',
+      'PostgreSQL',
+      'Automatisation',
+      'GitHub Actions',
+      'Traitement de données',
+    ],
+    learnings:
+      "SmartGamble m'a permis de renforcer mes compétences en développement Full Stack et de travailler sur une application reposant sur plusieurs technologies complémentaires. J'ai également approfondi ma compréhension des processus automatisés de collecte et de traitement des données, ainsi que de leur intégration dans une application web.",
+    // internship ran April–July 2026
+    status: 'done',
   },
   {
     ...empty,

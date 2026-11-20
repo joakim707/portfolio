@@ -118,7 +118,10 @@ export function CompletedPanel() {
         <div className="mt-5 rounded-xl bg-white/5 p-4">
           <p className="text-xs tracking-widest text-white/50 uppercase">Le projet derrière l'attraction</p>
           <p className="mt-1 text-xl font-semibold">{p?.title ?? a.project}</p>
-          {p?.context && <p className="text-xs text-white/50">{p.context}</p>}
+          {(p?.kind || p?.context || p?.period) && (
+            <p className="text-xs text-white/50">{[p?.kind, p?.context, p?.period].filter(Boolean).join(' · ')}</p>
+          )}
+          {p?.role && <p className="mt-0.5 text-xs font-semibold text-white/70">Rôle : {p.role}</p>}
           {hasContent ? (
             <p className="mt-2 text-sm leading-relaxed text-white/80">{details ? p?.description ?? p?.tagline : p?.tagline ?? p?.description}</p>
           ) : (
@@ -137,7 +140,7 @@ export function CompletedPanel() {
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-white/80">
               {p.problem && (
                 <section>
-                  <h3 className="text-xs font-semibold tracking-widest text-white/50 uppercase">Problème</h3>
+                  <h3 className="text-xs font-semibold tracking-widest text-white/50 uppercase">Problématique</h3>
                   <p>{p.problem}</p>
                 </section>
               )}
@@ -147,6 +150,18 @@ export function CompletedPanel() {
                   <ul className="list-disc pl-5">
                     {p.features.map((f) => (
                       <li key={f}>{f}</li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+              {!!p.contributions.length && (
+                <section>
+                  <h3 className="text-xs font-semibold tracking-widest text-white/50 uppercase">Mon travail sur le projet</h3>
+                  <ul className="space-y-1">
+                    {p.contributions.map((c) => (
+                      <li key={c.area}>
+                        <span className="font-semibold text-white">{c.area} :</span> {c.text}
+                      </li>
                     ))}
                   </ul>
                 </section>
@@ -161,6 +176,18 @@ export function CompletedPanel() {
                 <section>
                   <h3 className="text-xs font-semibold tracking-widest text-white/50 uppercase">Solutions</h3>
                   <p>{p.solutions}</p>
+                </section>
+              )}
+              {!!p.skills.length && (
+                <section>
+                  <h3 className="text-xs font-semibold tracking-widest text-white/50 uppercase">Compétences mobilisées</h3>
+                  <p>{p.skills.join(' · ')}</p>
+                </section>
+              )}
+              {p.learnings && (
+                <section>
+                  <h3 className="text-xs font-semibold tracking-widest text-white/50 uppercase">Ce que ce projet m'a apporté</h3>
+                  <p>{p.learnings}</p>
                 </section>
               )}
               {(p.github || p.demo) && (
