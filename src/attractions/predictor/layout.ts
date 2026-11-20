@@ -20,7 +20,24 @@ export const RAIL_Y = 1.0
 /** Front car stop mark, measured from the start of the station straight. */
 export const STATION_S = 18
 export const CARS = 5
-export const CAR_SPACING = 2.7
+
+/**
+ * Kenney Coaster Kit cars (coaster-train-front / coaster-train), measured on a
+ * 0.1-unit grid: two single-file seats per car, cushion at y 0.37, backrest
+ * faces at z −0.24 / +0.36, wheels at x ±0.28, cars coupled every 1.32 units.
+ * ×2.2 gives a 46 cm deep seat and a 1.54 m wide car for our 1.8 m visitor.
+ */
+export const KENNEY_SCALE = 2.2
+/** Hip points (metres, car space): front row, then back row. */
+export const SEATS: [number, number, number][] = [
+  [0, 0.42 * KENNEY_SCALE, -0.3 * KENNEY_SCALE],
+  [0, 0.42 * KENNEY_SCALE, 0.3 * KENNEY_SCALE],
+]
+export const CAR_SPACING = 1.32 * KENNEY_SCALE
+/** Half gauge matching the model's wheels. */
+export const GAUGE = 0.28 * KENNEY_SCALE
+/** The player's seat sits this far ahead of the front car's origin. */
+const SEAT_AHEAD = -SEATS[0][2]
 
 const PI2 = Math.PI / 2
 /** Tuning lengths so the final turn lines up with the station (checked by analysis). */
@@ -53,11 +70,11 @@ export const PREDICTOR_CONFIG: RideConfig = {
   timings: { restraints: 2.8, starting: 4, braking: 4.5, unboarding: 2, interrupted: 1.2 },
   playerSeat: 0,
   // front car centre stops at x = STATION_START_X + STATION_S; seat 0 is on the platform (+z) side
-  platform: { position: [STATION_START_X + STATION_S, 0.35, STATION_Z + 2.1], yaw: 0 },
+  platform: { position: [STATION_START_X + STATION_S + SEAT_AHEAD, 0.35, STATION_Z + 2.1], yaw: 0 },
   exit: { position: [6, 0, 39], yaw: Math.PI },
   boarding: { position: [0, 0, 36], radius: 6 },
   eyeOffset: [0, 0.78, -0.08],
-  stationCamera: { position: [STATION_START_X + STATION_S - 5, 3.2, STATION_Z + 6.5], target: [STATION_START_X + STATION_S, 1.4, STATION_Z] },
+  stationCamera: { position: [STATION_START_X + STATION_S - 4, 3.2, STATION_Z + 6.5], target: [STATION_START_X + STATION_S + SEAT_AHEAD, 1.4, STATION_Z] },
   // high and far enough to clear the four cars behind the front car
   chaseOffset: [0, 5, 11],
   cinematicShots: [

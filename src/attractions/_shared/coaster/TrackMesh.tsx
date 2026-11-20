@@ -22,13 +22,15 @@ interface TrackMeshProps {
   supportEvery?: number
   /** Static colliders on the supports (only needed where visitors can walk). */
   colliders?: boolean
+  /** Half distance between the two running rails (match the cars' wheels). */
+  gauge?: number
 }
 
-const tieGeo = new BoxGeometry(1.15, 0.08, 0.16)
 const supportGeo = new CylinderGeometry(0.22, 0.3, 1, 8).translate(0, 0.5, 0)
 
 /** Rails, spine, ties and supports of a coaster track: 5 draw calls whatever its length. */
-export function TrackMesh({ track, railColor = '#c7ccd3', spineColor = '#ff4d6d', supportColor = '#2d3138', supportEvery = 6, colliders = false }: TrackMeshProps) {
+export function TrackMesh({ track, railColor = '#c7ccd3', spineColor = '#ff4d6d', supportColor = '#2d3138', supportEvery = 6, colliders = false, gauge = 0.45 }: TrackMeshProps) {
+  const tieGeo = useMemo(() => new BoxGeometry(gauge * 2 + 0.25, 0.08, 0.16), [gauge])
   const mats = useMemo(
     () => ({
       rail: new MeshStandardMaterial({ color: railColor, metalness: 0.8, roughness: 0.3 }),
@@ -46,22 +48,23 @@ export function TrackMesh({ track, railColor = '#c7ccd3', spineColor = '#ff4d6d'
     const S: Vector3[] = []
     for (let i = 0; i < track.segments; i += step) {
       const p = track.points[i]
-      L.push(p.clone().addScaledVector(track.binormals[i], -0.45))
-      R.push(p.clone().addScaledVector(track.binormals[i], 0.45))
+      L.push(p.clone().addScaledVector(track.binormals[i], -gauge))
+      R.push(p.clone().addScaledVector(track.binormals[i], gauge))
       S.push(p.clone().addScaledVector(track.normals[i], -0.32))
     }
     const segs = Math.round(track.length * 1.5)
     const tube = (pts: Vector3[], r: number, radial: number) => new TubeGeometry(new CatmullRomCurve3(pts, true, 'centripetal'), segs, r, radial, true)
     return { left: tube(L, 0.065, 6), right: tube(R, 0.065, 6), spine: tube(S, 0.2, 8) }
-  }, [track])
+  }, [track, gauge])
   useEffect(
     () => () => {
+      tieGeo.dispose()
       geo.left.dispose()
       geo.right.dispose()
       geo.spine.dispose()
       Object.values(mats).forEach((m) => m.dispose())
     },
-    [geo, mats],
+    [geo, mats, tieGeo],
   )
 
   // supports: vertical columns under upright, elevated, non-inverting sections

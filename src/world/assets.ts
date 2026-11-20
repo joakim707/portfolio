@@ -16,6 +16,8 @@ export const KENNEY_MODELS = [
   'stall-food',
   'stall-information',
   'stall-toilets',
+  'coaster-train-front',
+  'coaster-train',
 ] as const
 export type KenneyModel = (typeof KENNEY_MODELS)[number]
 

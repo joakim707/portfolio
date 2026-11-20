@@ -8,7 +8,8 @@ import { rideRuntimes } from '@/core/rides/runtime'
 import { rideAudio } from '@/core/audio/rideAudio'
 import { CoasterTrain } from '@/attractions/_shared/coaster/CoasterTrain'
 import { TrackMesh } from '@/attractions/_shared/coaster/TrackMesh'
-import { CAR_SPACING, CARS, PREDICTOR_CONFIG, STATION_S, buildPredictorTrack } from './layout'
+import { useKenney } from '@/world/assets'
+import { CAR_SPACING, CARS, GAUGE, KENNEY_SCALE, PREDICTOR_CONFIG, SEATS, STATION_S, buildPredictorTrack } from './layout'
 import { Station } from './Station'
 import { Tunnel } from './Tunnel'
 
@@ -54,6 +55,8 @@ export default function Predictor({ id }: { id: AttractionId }) {
   const trainRef = useRef<CoasterTrain | null>(null)
   const train = () => trainRef.current
   useRideSound(id, train)
+  const frontCar = useKenney('coaster-train-front')
+  const car = useKenney('coaster-train')
 
   return (
     <Ride
@@ -68,6 +71,7 @@ export default function Predictor({ id }: { id: AttractionId }) {
           spacing: CAR_SPACING,
           playerCar: 0,
           colors: { body: '#b91c1c', trim: '#111827', bar: '#f6c445' },
+          body: { front: frontCar, car, scale: KENNEY_SCALE, seats: SEATS },
           liftSpeed: 4,
           launchSpeed: 3,
           brakeSpeed: 4.5,
@@ -75,7 +79,7 @@ export default function Predictor({ id }: { id: AttractionId }) {
         }))
       }
     >
-      <TrackMesh track={track} spineColor="#ef4444" supportColor="#1f2937" supportEvery={5} />
+      <TrackMesh track={track} spineColor="#ef4444" supportColor="#1f2937" supportEvery={5} gauge={GAUGE} />
       <Station />
       <Tunnel track={track} train={train} />
     </Ride>

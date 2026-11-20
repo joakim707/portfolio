@@ -1,4 +1,4 @@
-import { BoxGeometry, CylinderGeometry, Group, Matrix4, Mesh, MeshStandardMaterial, Object3D } from 'three'
+import { BoxGeometry, BufferGeometry, CylinderGeometry, Group, Matrix4, Mesh, MeshStandardMaterial, Object3D, type Material } from 'three'
 import { hermiteStop, restraintAmount } from '@/core/rides/motion'
 import type { RidePhaseTimings, RideSimulation, RideState } from '@/core/rides/types'
 import { createFrame, sampleTrack, type Track, type TrackLabel } from './track'
@@ -26,6 +26,18 @@ export interface CoasterOptions {
   minInversionSpeed?: number
   /** Aerodynamic drag coefficient (a = -k v²). */
   drag?: number
+  /** Optional 3D car bodies (e.g. Kenney models) instead of the built-in blocky cars. */
+  body?: CarBody
+}
+
+/** A modelled car body. Model space: origin on the rail between the wheels, riders face −Z. */
+export interface CarBody {
+  front: { geometry: BufferGeometry; material: Material }
+  car: { geometry: BufferGeometry; material: Material }
+  /** Uniform scale applied to the model. */
+  scale: number
+  /** Passenger hip points in car space (metres, after scaling), seat 0 first. */
+  seats: [number, number, number][]
 }
 
 /** Two seats per car: seat 0 = right (platform side), seat 1 = left. */
@@ -44,7 +56,7 @@ export class CoasterTrain implements RideSimulation {
   private readonly cars: Group[] = []
   private readonly seats: Object3D[][] = []
   private readonly harness: Group[] = []
-  private readonly opts: Required<Omit<CoasterOptions, 'colors'>> & Pick<CoasterOptions, 'colors'>
+  private readonly opts: Required<Omit<CoasterOptions, 'colors' | 'body'>> & Pick<CoasterOptions, 'colors' | 'body'>
   private s: number
   private v = 0
   private label: TrackLabel = 'station'
@@ -101,6 +113,10 @@ export class CoasterTrain implements RideSimulation {
     }
     const P = this.palette
     const car = new Group()
+    if (this.opts.body) {
+      this.buildModelCar(car, index, this.opts.body, P.bar)
+      return
+    }
     this.box(car, 1.5, 0.35, 2.3, P.body, 0, 0.42, 0)
     this.box(car, 1.52, 0.08, 2.32, P.trim, 0, 0.62, 0)
     if (index === 0) {
@@ -139,6 +155,34 @@ export class CoasterTrain implements RideSimulation {
       car.add(h)
       this.harness.push(h)
     })
+    this.cars.push(car)
+    this.seats.push(seats)
+    this.root.add(car)
+  }
+
+  /** Car built from a 3D model: our seats (hip points) and animated harnesses are added on top. */
+  private buildModelCar(car: Group, index: number, body: CarBody, bar: MeshStandardMaterial) {
+    const src = index === 0 ? body.front : body.car
+    const mesh = new Mesh(src.geometry, src.material)
+    mesh.scale.setScalar(body.scale)
+    mesh.castShadow = true
+    mesh.receiveShadow = true
+    car.add(mesh)
+    const seats: Object3D[] = []
+    for (const [x, y, z] of body.seats) {
+      const seat = new Object3D()
+      seat.position.set(x, y, z)
+      car.add(seat)
+      seats.push(seat)
+      // over-the-shoulder harness, hinged above and behind the rider's head
+      const h = new Group()
+      h.position.set(x, y + 0.71, z + 0.24)
+      for (const bx of [-0.17, 0.17]) this.box(h, 0.07, 0.07, 0.55, bar, bx, -0.05, -0.27)
+      for (const bx of [-0.17, 0.17]) this.box(h, 0.07, 0.6, 0.07, bar, bx, -0.35, -0.55)
+      this.box(h, 0.42, 0.09, 0.09, bar, 0, -0.62, -0.55)
+      car.add(h)
+      this.harness.push(h)
+    }
     this.cars.push(car)
     this.seats.push(seats)
     this.root.add(car)
