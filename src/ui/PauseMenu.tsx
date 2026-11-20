@@ -3,6 +3,7 @@ import { ATTRACTIONS } from '@/data/attractions'
 import { ATTRACTION_MODULES } from '@/core/rides/registry'
 import { useGameStore, type ComfortSettings, type Quality, type TeleportTarget } from '@/core/store/useGameStore'
 import { activeRide, resumeWithPointerLock } from './useGameInput'
+import { CHARACTERS, characterPreview } from '@/world/player/characters'
 
 const QUALITY_LABELS: Record<Quality, string> = { low: 'Bas', medium: 'Moyen', high: 'Élevé' }
 const COMFORT_LABELS: Record<keyof ComfortSettings, string> = {
@@ -38,6 +39,8 @@ export function PauseMenu() {
   const visited = useGameStore((s) => s.visited)
   const requestTeleport = useGameStore((s) => s.requestTeleport)
   const pausedFrom = useGameStore((s) => s.pausedFrom)
+  const character = useGameStore((s) => s.character)
+  const setCharacter = useGameStore((s) => s.setCharacter)
   const ride = useGameStore((s) => s.activeRide)
   // no teleporting out of a moving ride: leave it properly first
   const riding = pausedFrom === 'riding' && !!ride
@@ -127,6 +130,26 @@ export function PauseMenu() {
                 ))}
               </div>
             </section>
+
+            {!riding && (
+              <section>
+                <h3 className="mb-2 text-xs font-semibold tracking-widest text-white/50 uppercase">Ton visiteur</h3>
+                <div className="grid grid-cols-8 gap-1.5" role="radiogroup" aria-label="Choix du personnage">
+                  {CHARACTERS.map((c) => (
+                    <button
+                      key={c.id}
+                      role="radio"
+                      aria-checked={character === c.id}
+                      title={c.label}
+                      onClick={() => setCharacter(c.id)}
+                      className={`aspect-square rounded-lg p-0.5 transition ${character === c.id ? 'bg-gold' : 'bg-white/5 hover:bg-white/15'}`}
+                    >
+                      <img src={characterPreview(c.id)} alt={c.label} className="h-full w-full" />
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
 
             <section>
               <h3 className="mb-2 text-xs font-semibold tracking-widest text-white/50 uppercase">Confort</h3>

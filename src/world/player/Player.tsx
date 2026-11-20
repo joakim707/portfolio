@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { Suspense, useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { CapsuleCollider, RigidBody, useRapier, type RapierCollider, type RapierRigidBody } from '@react-three/rapier'
 import { Group, Vector3, type PerspectiveCamera } from 'three'
@@ -41,6 +41,7 @@ export function Player() {
   const { world, rapier } = useRapier()
   const camera = useThree((s) => s.camera)
   const gl = useThree((s) => s.gl)
+  const character = useGameStore((s) => s.character)
 
   const body = useRef<RapierRigidBody>(null)
   const collider = useRef<RapierCollider>(null)
@@ -327,7 +328,10 @@ export function Player() {
         <CapsuleCollider ref={collider} args={[CAPSULE_HALF, CAPSULE_RADIUS]} />
       </RigidBody>
       <group ref={visual} position={[spawn.feet[0], spawn.feet[1], spawn.feet[2]]} rotation-y={spawn.yaw}>
-        <Avatar ref={avatar} />
+        {/* own boundary: switching character must not suspend the whole park */}
+        <Suspense fallback={null}>
+          <Avatar key={character} ref={avatar} character={character} />
+        </Suspense>
       </group>
     </>
   )

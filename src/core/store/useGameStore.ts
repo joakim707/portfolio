@@ -38,6 +38,8 @@ interface GameState {
   pausedFrom: 'explore' | 'riding'
   /** Preferred on-board camera (persisted). */
   rideCamera: CameraMode
+  /** Chosen visitor model (persisted), see world/player/characters.ts. */
+  character: string
 
   setPhase: (p: GamePhase) => void
   setQuality: (q: Quality) => void
@@ -45,6 +47,7 @@ interface GameState {
   markVisited: (id: AttractionId) => void
   setActiveRide: (r: ActiveRide | null) => void
   setRideCamera: (m: CameraMode) => void
+  setCharacter: (c: string) => void
   setNearZone: (id: AttractionId | null) => void
   setPointerLocked: (v: boolean) => void
   requestTeleport: (target: TeleportTarget) => void
@@ -100,6 +103,7 @@ export const useGameStore = create<GameState>()(
       menuTab: 'main',
       pausedFrom: 'explore',
       rideCamera: 'pov',
+      character: 'male-a',
 
       setPhase: (phase) => set({ phase }),
       setQuality: (quality) => set({ quality }),
@@ -107,6 +111,7 @@ export const useGameStore = create<GameState>()(
       markVisited: (id) => set((s) => (s.visited.includes(id) ? s : { visited: [...s.visited, id] })),
       setActiveRide: (activeRide) => set({ activeRide }),
       setRideCamera: (rideCamera) => set({ rideCamera }),
+      setCharacter: (character) => set({ character }),
       setNearZone: (nearZone) => set((s) => (s.nearZone === nearZone ? s : { nearZone })),
       setPointerLocked: (pointerLocked) => set({ pointerLocked }),
       requestTeleport: (target) => set({ teleport: { target, nonce: Date.now() + Math.random() } }),
@@ -122,7 +127,7 @@ export const useGameStore = create<GameState>()(
       name: 'wilondja-world',
       storage: safeStorage,
       // Only preferences and progress persist; runtime state never does.
-      partialize: (s) => ({ quality: s.quality, comfort: s.comfort, visited: s.visited, rideCamera: s.rideCamera }),
+      partialize: (s) => ({ quality: s.quality, comfort: s.comfort, visited: s.visited, rideCamera: s.rideCamera, character: s.character }),
     },
   ),
 )

@@ -4,3 +4,4 @@ dist
 *.tsbuildinfo
 # full asset packs (only the models the game uses live in public/models)
 /kenney_coaster-kit/
+/kenney_mini-characters/

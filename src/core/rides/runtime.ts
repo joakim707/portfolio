@@ -35,8 +35,11 @@ export const rideRuntimes = new Map<AttractionId, RideRuntime>()
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Avatar hip height above its feet (see Avatar.tsx). */
-export const AVATAR_HIP = 0.9
+/**
+ * How far the avatar's origin sits below the seat's hip point when seated.
+ * Set by the avatar component (each model has its own seated pose).
+ */
+export const avatarMetrics = { seatDrop: 0.9 }
 
 /** How the avatar is driven this frame. 'free' = the player rig owns it. */
 export type PassengerMode = 'free' | 'standing' | 'walking' | 'seated'
@@ -224,7 +227,7 @@ export class RideRuntime {
     seat.updateWorldMatrix(true, false)
     seat.matrixWorld.decompose(outPos, outQuat, tmpS)
     // feet origin: drop by the hip height along the seat's up axis
-    outPos.addScaledVector(tmpV.set(0, 1, 0).applyQuaternion(outQuat), -AVATAR_HIP)
+    outPos.addScaledVector(tmpV.set(0, 1, 0).applyQuaternion(outQuat), -avatarMetrics.seatDrop)
     return true
   }
 
