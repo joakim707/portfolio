@@ -76,6 +76,8 @@ export interface RideSimulation {
    * cushion, -Z = where the passenger faces, +Y = the passenger's up.
    */
   getSeat(index: number): Object3D | null
+  /** Every passenger seat of the ride (all cars / rows), for NPC riders. */
+  getAllSeats?(): Object3D[]
   /** Main vehicle body, framed by the chase and cinematic cameras. */
   getVehicle(): Object3D
   /** False while the vehicle is away from the station (e.g. an empty cycle). */

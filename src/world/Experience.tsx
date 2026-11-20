@@ -9,7 +9,10 @@ import { Park } from './Park'
 import { CameraDirector } from './CameraDirector'
 import { Player } from './player/Player'
 
-const DEBUG_PHYSICS = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug')
+const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null
+const DEBUG_PHYSICS = !!params?.has('debug')
+/** ?noperf keeps the chosen quality (no automatic downgrade) — for captures and benchmarks. */
+const AUTO_QUALITY = !params?.has('noperf')
 
 /** Rendered once everything above it has finished suspending (Rapier WASM, textures). */
 function ReadySignal() {
@@ -43,13 +46,15 @@ export function Experience() {
       gl={{ antialias: quality !== 'low', powerPreference: 'high-performance', outputColorSpace: SRGBColorSpace, toneMapping: ACESFilmicToneMapping }}
     >
       {/* Drop one quality level automatically if the frame rate collapses. */}
-      <PerformanceMonitor
-        flipflops={2}
-        onDecline={() => {
-          if (quality === 'high') setQuality('medium')
-          else if (quality === 'medium') setQuality('low')
-        }}
-      />
+      {AUTO_QUALITY && (
+        <PerformanceMonitor
+          flipflops={2}
+          onDecline={() => {
+            if (quality === 'high') setQuality('medium')
+            else if (quality === 'medium') setQuality('low')
+          }}
+        />
+      )}
       <AdaptiveDpr />
       <Lighting />
       <Suspense fallback={null}>

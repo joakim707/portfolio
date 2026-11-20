@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { Suspense, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useFrame } from '@react-three/fiber'
 import type { Group } from 'three'
 import type { AttractionId } from '@/data/attractions'
 import { RideRuntime, rideRuntimes } from './runtime'
+import { RideRiders } from './RideRiders'
 import type { RideConfig, RideSimulation } from './types'
 
 interface RideProps {
@@ -43,5 +44,14 @@ export function Ride({ id, config, createSimulation, children }: RideProps) {
   // priority -1: rides move before the player rig places the avatar and camera
   useFrame((_, dt) => runtime?.update(Math.min(dt, 1 / 20)), -1)
 
-  return <group ref={group}>{children}</group>
+  return (
+    <group ref={group}>
+      {children}
+      {runtime && (
+        <Suspense fallback={null}>
+          <RideRiders runtime={runtime} />
+        </Suspense>
+      )}
+    </group>
+  )
 }

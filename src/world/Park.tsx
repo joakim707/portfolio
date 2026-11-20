@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { ATTRACTIONS } from '@/data/attractions'
 import { Terrain } from './Terrain'
 import { Paths } from './Paths'
@@ -10,6 +11,7 @@ import { Stands } from './Stands'
 import { Pond } from './Pond'
 import { Decor } from './Decor'
 import { Forecourt } from './Forecourt'
+import { Crowd } from './npc/Crowd'
 
 /** The whole static park. Must be rendered inside <Physics>. */
 export function Park() {
@@ -28,6 +30,10 @@ export function Park() {
       {ATTRACTIONS.map((a) => (
         <AttractionZone key={a.id} def={a} />
       ))}
+      {/* visitors load after the park is up, without holding it back */}
+      <Suspense fallback={null}>
+        <Crowd />
+      </Suspense>
     </group>
   )
 }

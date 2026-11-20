@@ -286,6 +286,9 @@ export class CoasterTrain implements RideSimulation {
   getVehicle() {
     return this.cars[this.opts.playerCar]
   }
+  getAllSeats() {
+    return this.seats.flat()
+  }
   getSpeed() {
     return this.v
   }

@@ -143,6 +143,9 @@ export class Pendulum implements RideSimulation {
   getSeat(i: number) {
     return this.seats[i] ?? null
   }
+  getAllSeats() {
+    return this.seats
+  }
   /** The chase / cinematic cameras frame the player's seat. */
   getVehicle() {
     return this.seats[0]

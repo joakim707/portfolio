@@ -132,10 +132,13 @@ export const useGameStore = create<GameState>()(
   ),
 )
 
-export const QUALITY_PRESETS: Record<Quality, { dpr: [number, number]; shadows: boolean; shadowMapSize: number; trees: number }> = {
-  low: { dpr: [0.75, 1], shadows: false, shadowMapSize: 1024, trees: 160 },
-  medium: { dpr: [1, 1.5], shadows: true, shadowMapSize: 2048, trees: 320 },
-  high: { dpr: [1, 2], shadows: true, shadowMapSize: 4096, trees: 520 },
+export const QUALITY_PRESETS: Record<
+  Quality,
+  { dpr: [number, number]; shadows: boolean; shadowMapSize: number; trees: number; npcs: number; riderFill: number }
+> = {
+  low: { dpr: [0.75, 1], shadows: false, shadowMapSize: 1024, trees: 160, npcs: 20, riderFill: 0.3 },
+  medium: { dpr: [1, 1.5], shadows: true, shadowMapSize: 2048, trees: 320, npcs: 48, riderFill: 0.6 },
+  high: { dpr: [1, 2], shadows: true, shadowMapSize: 4096, trees: 520, npcs: 72, riderFill: 0.85 },
 }
 
 // Dev-only handle for automated browser tests.

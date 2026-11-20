@@ -148,6 +148,9 @@ export class DropTower implements RideSimulation {
   getSeat(i: number) {
     return this.seats[i] ?? null
   }
+  getAllSeats() {
+    return this.seats
+  }
   /** The chase / cinematic cameras frame the player's seat, not the mast axis. */
   getVehicle() {
     return this.seats[0]
